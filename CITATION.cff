@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite them as below."
+title: "From the Notebook to the Cluster: Workshop Materials for toolero, containr, and submitr"
+authors:
+  - family-names: Lares
+    given-names: Erwin
+    affiliation: "University of Wisconsin-Madison"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+version: "1.0.0"
+date-released: "2026-10-XX"
+repository-code: "https://github.com/erwinlares/n2c-workshop"
+url: "https://erwinlares.github.io/n2c-workshop/"
+license:
+  - CC-BY-4.0
+  - MIT
+abstract: >-
+  Participant materials for a three-day workshop series on moving an R
+  analysis from a notebook to a high-throughput computing cluster. The
+  series covers project scaffolding (toolero), containerization (containr),
+  and job submission (submitr), and includes lessons, data, a setup check,
+  and checkpoint projects.
+keywords:
+  - R
+  - reproducible research
+  - renv
+  - Docker
+  - HTCondor
+  - workshop
+references:
+  - type: software
+    title: "palmerpenguins: Palmer Archipelago (Antarctica) penguin data"
+    authors:
+      - family-names: Horst
+        given-names: Allison M.
+      - family-names: Hill
+        given-names: Alison Presmanes
+      - family-names: Gorman
+        given-names: Kristen B.
+    year: 2020
+    doi: 10.5281/zenodo.3960218
+  - type: article
+    title: "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis)"
+    authors:
+      - family-names: Gorman
+        given-names: Kristen B.
+      - family-names: Williams
+        given-names: Tony D.
+      - family-names: Fraser
+        given-names: William R.
+    journal: "PLoS ONE"
+    volume: 9
+    issue: 3
+    year: 2014
+    doi: 10.1371/journal.pone.0090081
