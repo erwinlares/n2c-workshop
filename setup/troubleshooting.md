@@ -52,8 +52,8 @@ only reminds you to confirm them yourself.
 ## R, Quarto, and Git (Day 1)
 
 **R is older than 4.4.0.** Install a current R from
-<https://cran.r-project.org/>, then restart your editor. Two follow-ups are
-worth knowing about. First, on macOS and Windows each minor version of R keeps
+<https://cran.r-project.org/>, then restart your editor. Two follow-ups
+follow. First, on macOS and Windows each minor version of R keeps
 its own package library, so after a big upgrade you will need to reinstall the
 packages (the three workshop packages, at least). Second, if your editor keeps
 using the old R, tell it which one to use. In RStudio, that setting is under
@@ -71,13 +71,32 @@ the installation did not finish, so run the installer again.
 installs Git. You can also trigger it yourself by running
 `xcode-select --install` in a terminal.
 
-**I use Positron, and the lesson says to double-click an `.Rproj` file.**
-The lessons were built in RStudio. `init_project()` creates the `.Rproj` file
-only when it runs inside RStudio, so in Positron you will not have one, and you
-do not need it: open the project folder with File, Open Folder instead. The
-`.here` file in the project root does the job `here` needs. One side effect:
-`check_project()` will report the missing `.Rproj` file as a failure, which you
-can ignore.
+**I use Positron, and my project has no `.Rproj` file.** The lessons were
+built in RStudio. `init_project()` creates the `.Rproj` file only when it runs
+inside RStudio, so in Positron you will not have one, and you do not need it:
+open the project folder with File, Open Folder (in RStudio, the equivalent is
+File, Open Project). The `.here` file in the project root does the job `here`
+needs. One side effect: `check_project()` will report the missing `.Rproj`
+file as a failure, which you can ignore.
+
+**I opened my new project and the lesson disappeared.** Opening a project
+replaces the current window, so the lesson you had open in the editor is gone.
+That is intended: the lesson lives in your browser at
+<https://erwinlares.github.io/n2c-workshop/>, and you work in the one editor
+session from there on.
+
+**The data file downloaded with a `.txt` ending, or opened in the browser
+instead of saving.** Use the file's page (the link in Task 1) and click
+"Download raw file." If the ending is still wrong, rename the file to
+`palmer-morphometrics-2024.csv`, or skip the browser and let R fetch it. Run
+this from the folder where you want the file to land:
+
+```r
+download.file(
+  "https://raw.githubusercontent.com/erwinlares/n2c-workshop/main/data/palmer-morphometrics-2024.csv",
+  destfile = "palmer-morphometrics-2024.csv"
+)
+```
 
 **Quarto is found, but "did not run".** Reinstall it from
 <https://quarto.org/docs/get-started/>. If you use RStudio or Positron, the
@@ -164,8 +183,8 @@ check that the `.here` file is still there.
 **"object 'bill_length_mm' not found" (or a similar column name).** You probably
 loaded the `penguins` dataset that ships with R 4.5 and later, which uses
 different column names (`bill_len`, `bill_dep`, `flipper_len`, `body_mass`).
-The workshop reads the CSV files from the repository's `data/` folder (you copy
-them into your project's `data-raw/` folder), and they use the palmerpenguins
+The workshop reads the CSV file from the repository's `data/` folder (you copy
+it into your project's `data-raw/` folder), and it uses the palmerpenguins
 names.
 Read the CSV and the code will find its columns.
 
@@ -238,6 +257,12 @@ remove unused images and stopped containers with `docker system prune`, but read
 its confirmation message first, because it deletes things.
 
 ## GitLab (Day 2)
+
+**`podman login` or `docker login` to `registry.doit.wisc.edu` is rejected.**
+The registry does not accept your NetID password. It expects a personal access
+token, created in GitLab. My guide to creating one and logging in is at
+<https://git.doit.wisc.edu/ERWIN.LARES/container-registry>. Check that the token
+has registry scopes and has not expired.
 
 **I cannot reach `git.doit.wisc.edu`.** Some services at the university are only
 reachable from the campus network or through WiscVPN. Connect to WiscVPN and try

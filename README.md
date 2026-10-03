@@ -61,7 +61,8 @@ them (the CHTC account) takes a few business days, so please start it early.
 
 ### Before Day 2
 
-Day 2 builds container images, so everyone needs two things.
+Day 2 builds container images and sends them to a registry, so everyone needs
+three things.
 
 1. **A container engine: Docker and/or Podman.** You need one of them, and
    either works. Platform-specific steps are in the next section.
@@ -70,6 +71,13 @@ Day 2 builds container images, so everyone needs two things.
    [DoIT knowledge base article](https://kb.wisc.edu/shared-tools/page.php?id=121442).
    You sign in with your NetID and Duo, so please test the login before the
    session.
+3. **A personal access token (PAT) for the container registry**, and a
+   successful login with it from your container engine. The session pushes and
+   pulls images through `registry.doit.wisc.edu`, and your normal password will
+   not work there. I wrote a short guide that walks through creating the token
+   and logging in:
+   <https://git.doit.wisc.edu/ERWIN.LARES/container-registry>. Please follow it
+   before Day 2, and treat the token like a password.
 
 Windows users also need WSL2 (Windows Subsystem for Linux, version 2), which
 both Docker Desktop and Podman use on Windows.
@@ -168,22 +176,26 @@ would rather not think about it.
 
 ## Getting the materials
 
-The easiest route is to let usethis download and unpack the repository for
-you:
+There is nothing to clone or unpack. Read each lesson on the workshop site,
+<https://erwinlares.github.io/n2c-workshop/>, and work in a single RStudio (or
+Positron) session of your own, side by side with the lesson in your browser.
 
-```r
-usethis::use_course("erwinlares/n2c-workshop")
-```
+The one thing you download is the Day 1 data file. Task 1 links to it, and the
+link opens the file's page in this repository
+([`palmer-morphometrics-2024.csv`](https://github.com/erwinlares/n2c-workshop/blob/main/data/palmer-morphometrics-2024.csv)),
+where you choose "Download raw file." If your browser saves it with a `.txt`
+ending, or opens it instead of saving it, the raw address is
+<https://raw.githubusercontent.com/erwinlares/n2c-workshop/main/data/palmer-morphometrics-2024.csv>,
+and `download.file()` in R will fetch it for you. The troubleshooting guide
+has the details. If you would rather have everything at once, the green
+**Code** button on this page offers **Download ZIP**.
 
-It asks where to put the folder and then opens it. If you prefer, use the
-green **Code** button on this page and choose **Download ZIP**.
+What is inside the repository:
 
-What is inside:
-
-- `data/` holds the CSV file we start with. The second file is added when
-  the lesson needs it (see the data note below).
+- `data/` holds the CSV file we use on Day 1. A second file is added for
+  Day 2 (see the data note below).
 - `setup/` holds the setup check and the troubleshooting guide.
-- `docs/` holds the rendered lessons, which you can also read online at
+- `docs/` holds the rendered lessons, which are the pages you read online at
   the address above.
 
 ## If you fall behind
@@ -203,15 +215,17 @@ week of Day 3, so these links will not work before then.
 
 ## A note on the data
 
-The CSV files we use (one in `data/` now, and a second added during Day 1)
-use the column names from the palmerpenguins package, with units in the names (`bill_length_mm`, `bill_depth_mm`,
-`flipper_length_mm`, `body_mass_g`).
+The CSV files we use (one in `data/` now, and a second that I will add before
+Day 2) use the column names from the palmerpenguins package, with units in the
+names (`bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, `body_mass_g`).
+Day 1 uses only the 2024 file. The 2025 file arrives with Day 2, where it
+serves as a fresh dataset to hand to the containerized analysis.
 
 R 4.5 and later also ship a `penguins` dataset in base R's `datasets`
 package, but it names these columns differently (`bill_len`, `bill_dep`,
 `flipper_len`, `body_mass`). If you load that version instead of the CSVs,
 the lesson code will not find the columns it expects. The workshop always
-reads the CSV files, so you do not need to load either package's data.
+reads the CSV file, so you do not need to load either package's data.
 
 The split into "2024" and "2025" files is a teaching device. The original
 measurements were collected between 2007 and 2009 (Gorman et al. 2014; see
