@@ -5,9 +5,9 @@ authors:
   - family-names: Lares
     given-names: Erwin
     affiliation: "University of Wisconsin-Madison"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0000-0002-3284-828X"
 version: "1.0.0"
-date-released: "2026-10-XX"
+date-released: "2026-10-07"
 repository-code: "https://github.com/erwinlares/n2c-workshop"
 url: "https://erwinlares.github.io/n2c-workshop/"
 license:
