@@ -2353,8 +2353,9 @@ display: none;
   <li><a href="#what-this-session-is-about" id="toc-what-this-session-is-about" class="nav-link active" data-scroll-target="#what-this-session-is-about"><span class="header-section-number">0.1</span> What this session is about</a></li>
   <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.2</span> Who this is for</a></li>
   <li><a href="#what-youll-need" id="toc-what-youll-need" class="nav-link" data-scroll-target="#what-youll-need"><span class="header-section-number">0.3</span> What you’ll need</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">0.4</span> Learning objectives</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">0.5</span> Time</a></li>
+  <li><a href="#where-code-goes-in-this-session" id="toc-where-code-goes-in-this-session" class="nav-link" data-scroll-target="#where-code-goes-in-this-session"><span class="header-section-number">0.4</span> Where code goes in this session</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">0.5</span> Learning objectives</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">0.6</span> Time</a></li>
   <li><a href="#part-one-starting-a-project" id="toc-part-one-starting-a-project" class="nav-link" data-scroll-target="#part-one-starting-a-project"><span class="header-section-number">1</span> Part One: Starting a Project</a>
   <ul class="collapse">
   <li><a href="#welcome-and-backdrop" id="toc-welcome-and-backdrop" class="nav-link" data-scroll-target="#welcome-and-backdrop"><span class="header-section-number">1.1</span> Welcome and backdrop</a></li>
@@ -2448,7 +2449,7 @@ display: none;
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 5, 2026</p>
+      <p class="date-modified">October 9, 2026</p>
     </div>
   </div>
     
@@ -2475,11 +2476,11 @@ display: none;
 <section id="what-this-session-is-about" class="level2" data-number="0.1">
 <h2 data-number="0.1" class="anchored" data-anchor-id="what-this-session-is-about"><span class="header-section-number">0.1</span> What this session is about</h2>
 <p>Most researchers never deliberately learn <code>renv</code>, git, or how to keep a document and its code from drifting apart. Those habits get picked up in fragments, under deadline pressure, and usually only after something has already broken: a labmate can’t reproduce a figure, a script from three months ago won’t run, nobody remembers which package version produced the plot that is now in a manuscript. <code>toolero</code> exists so that adopting those habits doesn’t require becoming fluent in <code>renv</code> or git, or understanding how Quarto runs the code inside your document, before you can benefit from them.</p>
-<p>This is a standalone, two-hour session covering <code>toolero</code> on its own terms: how to start a project, why to work in a literate document and when to run a plain script instead, how to keep the code in a document and in its script from drifting apart, and how to retrofit these habits onto something that already exists. It uses one running example throughout, bill and flipper measurements from the Palmer Penguins dataset, framed as data collected by a UW-Madison research team at Palmer Station.</p>
+<p>This is a standalone, two-hour session covering <code>toolero</code> on its own terms: how to start a project, why to work in a literate document and when to run a plain script instead, how to keep the code in a document and in its script from drifting apart, and how to retrofit these habits onto something that already exists. The session uses one running example throughout, bill and flipper measurements from the Palmer Penguins dataset, framed as data collected by a UW-Madison research team at Palmer Station.</p>
 </section>
 <section id="who-this-is-for" class="level2" data-number="0.2">
 <h2 data-number="0.2" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.2</span> Who this is for</h2>
-<p>This session assumes you’re comfortable writing R scripts and functions; <code>dplyr</code>, <code>ggplot2</code>, and basic data wrangling should feel familiar. It does <strong>not</strong> assume any prior experience with <code>renv</code>, git, or Quarto’s rendering model. If “reproducible project structure” is still a fairly abstract phrase to you, you’re exactly who this was built for.</p>
+<p>This session assumes you’re comfortable writing R scripts and functions; <code>dplyr</code>, <code>ggplot2</code>, and basic data wrangling should feel familiar. The session does <strong>not</strong> assume any prior experience with <code>renv</code>, git, or Quarto’s rendering model. If “reproducible project structure” is still a fairly abstract phrase to you, you’re exactly who this was built for.</p>
 </section>
 <section id="what-youll-need" class="level2" data-number="0.3">
 <h2 data-number="0.3" class="anchored" data-anchor-id="what-youll-need"><span class="header-section-number">0.3</span> What you’ll need</h2>
@@ -2487,16 +2488,72 @@ display: none;
 <li><p>R (4.4.0 or later) and a recent version of RStudio</p></li>
 <li><p>Quarto 1.4 or later (bundled with recent RStudio releases)</p></li>
 <li><p>The <code>toolero</code> package, installed from GitHub until the current version reaches CRAN:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;pak&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">&quot;erwinlares/toolero&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><code>readr</code>, <code>ggplot2</code>, and <code>rmarkdown</code>, installed as usual (RStudio usually installs <code>rmarkdown</code> for you; Quarto needs it to render a document with R code in it)</p></li>
-<li><p>A git installation, so that <code>init_project()</code>’s git initialization takes effect (optional, but the session is smoother with it)</p></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;pak&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">&quot;erwinlares/toolero&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><code>readr</code>, <code>ggplot2</code>, <code>rmarkdown</code>, and <code>ragg</code>, installed as usual (RStudio usually installs <code>rmarkdown</code> for you, and Quarto needs <code>rmarkdown</code> to render a document with R code in it; <code>ragg</code> is a graphics package that R may ask for once it restarts inside the new project)</p></li>
+<li><p>A git installation, so that <code>init_project()</code>’s git initialization takes effect (optional, but the session is smoother with git installed)</p></li>
 <li><p>This lesson open in your browser, next to your editor</p></li>
-<li><p>One CSV file, <code>palmer-morphometrics-2024.csv</code>, which you will download at the start of Task 1. It stands in for “the data you already have”</p></li>
+<li><p>One CSV file, <code>palmer-morphometrics-2024.csv</code>, which you will download at the start of Task 1. The file stands in for “the data you already have”</p></li>
 </ul>
 </section>
-<section id="learning-objectives" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.4</span> Learning objectives</h2>
+<section id="where-code-goes-in-this-session" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="where-code-goes-in-this-session"><span class="header-section-number">0.4</span> Where code goes in this session</h2>
+<p>Many people who work through this session are unsure, at some point, about something that has nothing to do with <code>toolero</code>: where a piece of code is supposed to go. Someone who copies a line from a lesson has to decide whether to type it at the Console, add it to a file, or run it in a terminal, and the lesson rarely says. So every code block in this lesson starts with a label, and there are only three places that label can point.</p>
+<p><strong>Console</strong> is the R Console in your editor (in RStudio, the pane where the <code>&gt;</code> prompt waits). Code you type there runs the moment you press Enter. Nothing you type there becomes part of your project’s files, so the Console is the right place for something you do once, or for looking at something.</p>
+<p><strong>Source</strong> means a file in your project that you edit and save: a chunk in a <code>.qmd</code> or <code>.Rmd</code> document, or a line in an <code>.R</code> script. Code you add to a source file does not run the moment you type it. It runs later, when you run the chunk, render the document, or run the script, and it runs again every time after that. The Source label covers both documents and scripts because, from the editor’s point of view, they behave the same way: you write the code, you save it, and it runs when you ask.</p>
+<p><strong>Terminal</strong> is the command line, which in RStudio is the Terminal tab next to the Console. Anything that starts with <code>Rscript</code>, for instance, goes there. Pasting it into the Console is a common slip, and it fails.</p>
+<p>This matters for <code>toolero</code> because the package has two kinds of functions. Some are meant to be called once, from the Console, to set up or to inspect a project. Others are meant to sit inside your analysis, in Source, and run every time the analysis does. In other words, you would not put <code>init_project()</code> in a document, and you would not call <code>save_output()</code> from the Console and expect your analysis to remember it. Here is how the functions you will meet today sort themselves:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Where it goes</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>init_project()</code></td>
+<td>Console</td>
+<td>It makes the project your documents live in, so it cannot be part of one of them.</td>
+</tr>
+<tr class="even">
+<td><code>create_qmd()</code>, <code>generate_profile()</code></td>
+<td>Console</td>
+<td>Each writes a file for you to edit afterwards.</td>
+</tr>
+<tr class="odd">
+<td><code>check_project()</code>, <code>qmd_to_r()</code>, <code>generate_citation()</code>, <code>generate_license()</code>, <code>generate_data_doc()</code></td>
+<td>Console</td>
+<td>Each inspects or adds to a project from the outside.</td>
+</tr>
+<tr class="even">
+<td><code>resolve_input_path()</code>, <code>save_output()</code>, <code>generate_manifest()</code>, <code>write_by_group()</code>, <code>run_by_group()</code></td>
+<td>Source</td>
+<td>Each is a step in the analysis, so it runs whenever the analysis runs.</td>
+</tr>
+<tr class="odd">
+<td><code>read_output_records()</code></td>
+<td>Console or Source</td>
+<td>Use the Console to look at the record, and a chunk to put the same table in a report.</td>
+</tr>
+<tr class="even">
+<td><code>renv::hydrate()</code>, <code>renv::snapshot()</code></td>
+<td>Console</td>
+<td>They look after the project’s package library, which is not part of the analysis.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>.R</code> script that the purl hook writes is a source file too, but you never edit it by hand, and segment 13 explains why. Whenever a task asks you to run code, look at the first line of the block for its label.</p>
+</section>
+<section id="learning-objectives" class="level2" data-number="0.5">
+<h2 data-number="0.5" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.5</span> Learning objectives</h2>
 <p>By the end of this session, you should be able to:</p>
 <ul>
 <li>Identify the organizational decisions (file location, dependency tracking, version control) that quietly determine whether a project is (more) reproducible</li>
@@ -2509,18 +2566,19 @@ display: none;
 <li>Use <code>check_project()</code> to catch a script that has fallen behind its document, and to audit a project against the checklist <code>init_project()</code> satisfies</li>
 <li>Recognize why one document can disagree with itself about where its data lives when it runs interactively, under <code>quarto render</code>, and under <code>Rscript</code></li>
 <li>Use <code>resolve_input_path()</code> to let one document find its input in all three contexts, and apply it to a document you have already written</li>
+<li>Tell whether a <code>toolero</code> function belongs at the Console or in a source file, and keep one project closed before you open another</li>
 </ul>
 <p>The session also introduces, through demos you can come back to later:</p>
 <ul>
 <li><code>generate_profile()</code> and the <code>header_defaults</code> argument of <code>create_qmd()</code>, which pre-populate a new document’s YAML header from a profile you write once</li>
-<li><code>here::here()</code> for every other path in your code, and why it keeps a document in <code>reports/</code> from writing its results to the wrong place</li>
-<li><code>save_output()</code> and <code>generate_manifest()</code>, which leave a record of what an analysis produced, and <code>read_output_records()</code>, which reads it back</li>
-<li>the minimal project and its expanded <code>morphometrics-analysis.qmd</code>: what the document does, which kinds of research tasks it covers, and why the project is the starting point for the next session</li>
+<li>the project-root rule for paths: <code>toolero</code> functions apply it for you, and <code>here::here()</code> applies it to functions outside <code>toolero</code>, which keeps a document in <code>reports/</code> from writing its results to the wrong place</li>
+<li><code>save_output()</code> and <code>generate_manifest()</code>, which leave a record of what an analysis produced, and <code>read_output_records()</code>, which reads that record back</li>
+<li>the minimal project and its expanded <code>morphometrics-analysis.qmd</code>: what the document does, which kinds of research tasks it covers, and why the project replaces the one you build today as the starting point for the next session</li>
 <li><code>qmd_to_r()</code>, which brings the purl habit to a document that didn’t start with <code>create_qmd()</code></li>
 </ul>
 </section>
-<section id="time" class="level2" data-number="0.5">
-<h2 data-number="0.5" class="anchored" data-anchor-id="time"><span class="header-section-number">0.5</span> Time</h2>
+<section id="time" class="level2" data-number="0.6">
+<h2 data-number="0.6" class="anchored" data-anchor-id="time"><span class="header-section-number">0.6</span> Time</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -2686,18 +2744,19 @@ display: none;
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There’s no single correct way to do this; that is the point of the activity, not a gap in it. A simple version looks something like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;palmer-morphometrics-2024.csv&quot;</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Bill Length vs. Bill Depth by Species&quot;</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Bill Length (mm)&quot;</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Bill Depth (mm)&quot;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: an .R script, or the Console if that is how you worked</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;palmer-morphometrics-2024.csv&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Bill Length vs. Bill Depth by Species&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Bill Length (mm)&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Bill Depth (mm)&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is one reference version among many equally valid ones. The variety across the room is exactly what the poll is about to surface.</p>
 </div>
 </div>
@@ -2733,7 +2792,7 @@ display: none;
 <section id="debrief-and-transition" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="debrief-and-transition"><span class="header-section-number">1.3.1</span> Debrief and transition</h3>
 <blockquote class="blockquote">
-<p>Notice that nobody did anything careless. Where you saved the CSV, which packages you loaded, how you named your script: every choice was reasonable in the moment. That’s exactly the problem. It’s a long chain of small, sensible-in-the-moment decisions, oftentimes made without the luxury of thinking about the longevity of your work.</p>
+<p>Notice that nobody did anything careless. Where you saved the CSV, which packages you loaded, how you named your script: every choice was reasonable in the moment. That’s exactly the problem, because what you ended up with is a long chain of small, sensible-in-the-moment decisions, oftentimes made without the luxury of thinking about the longevity of your work.</p>
 </blockquote>
 <p>Hold that thought. Maris is about to come back with a second ask, and this one won’t be a five-minute favor.</p>
 </section>
@@ -2741,12 +2800,35 @@ display: none;
 <section id="task-2-assume-continuity" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="task-2-assume-continuity"><span class="header-section-number">1.4</span> Task 2: assume continuity</h2>
 <blockquote class="blockquote">
-<p>The grant is funded. Maris now wants this analysis built out properly, since it’s going to get rerun and extended over the life of the award. This isn’t a one-off figure anymore. It’s a project you’ll be coming back to for the next few years.</p>
+<p>The grant is funded. Maris now wants this analysis built out properly, since it’s going to get rerun and extended over the life of the award. This isn’t a one-off figure anymore. The analysis has become a project you’ll be coming back to for the next few years.</p>
 </blockquote>
 <section id="task-1" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="task-1"><span class="header-section-number">1.4.1</span> Task</h3>
+<p>Before you start, make one place for everything you build today. At the Console, create a folder called <code>n2c-workshop</code> in your home folder and make it R’s working folder. Every project you create today goes inside that folder, beside the others, and none goes inside another one. The last line below checks that R can see the folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;~/n2c-workshop&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;~/n2c-workshop&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.exists</span>(<span class="st">&quot;~/n2c-workshop&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It should print <code>TRUE</code>. (In RStudio, Session &gt; Set Working Directory &gt; Choose Directory does the same job as <code>setwd()</code>.)</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Where ~ points depends on your system">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Where ~ points depends on your system
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>~</code> in these paths is shorthand for your home folder, and each operating system reads it a little differently.</p>
+<p><strong>macOS and Linux.</strong> <code>~</code> is your home folder, so on a Mac the new folder is <code>/Users/&lt;you&gt;/n2c-workshop</code>. In Finder, Go &gt; Home (Shift-Command-H) opens it.</p>
+<p><strong>Windows.</strong> R normally reads <code>~</code> as your Documents folder, so <code>~/n2c-workshop</code> is <code>Documents\n2c-workshop</code>. Inside R, write paths with forward slashes even on Windows, because a backslash has a special meaning inside an R string. If OneDrive manages your Documents folder, this folder is synced too. <code>renv</code> and git write many small files that a sync client can slow down or lock, so choose a folder outside OneDrive if you can.</p>
+<p><strong>If <code>dir.exists()</code> prints <code>FALSE</code></strong>, or you chose a different folder, run <code>normalizePath(&quot;~/n2c-workshop&quot;, mustWork = FALSE)</code> to see where R is looking. Whatever path you settle on, use it wherever this lesson says <code>~/n2c-workshop</code>.</p>
+</div>
+</div>
+<p>Then:</p>
 <blockquote class="blockquote">
-<p>Using whatever tools you’d normally reach for: (1) create a project folder for this analysis and initialize it with <code>renv</code>; (2) put it under git version control; (3) organize things however you’d want to find them again in six months. You have about eight minutes.</p>
+<p>Using whatever tools you’d normally reach for, and working inside <code>n2c-workshop</code>: (1) create a project folder for this analysis and initialize that folder with <code>renv</code>; (2) put that project folder (not <code>n2c-workshop</code> itself) under git version control; (3) organize things however you’d want to find them again in six months. You have about eight minutes.</p>
 </blockquote>
 </section>
 </section>
@@ -2780,90 +2862,7 @@ display: none;
 </section>
 <section id="tooleros-answer-init_project-and-create_qmd" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="tooleros-answer-init_project-and-create_qmd"><span class="header-section-number">1.6</span> toolero’s answer: <code>init_project()</code> and <code>create_qmd()</code></h2>
-<p><code>init_project()</code> answers Task 2 in a single call, and it would have answered Task 1 just as readily:</p>
-<div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Show me the call
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(toolero)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">init_project</span>(<span class="at">path =</span> <span class="st">&quot;~/Documents/palmer-morphometrics&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>By default this creates a standard research-project folder structure (<code>data-raw/</code>, <code>data/</code>, <code>R/</code>, <code>scripts/</code>, <code>output/figures/</code>, <code>output/tables/</code>, and <code>reports/</code>), initializes both <code>renv</code> and git, and writes two small files: <code>_toolero.yml</code>, which records the project’s folders and conventions, and <code>.here</code>, an empty file that marks this folder as the project’s root. Both <code>renv</code> and git are on by default. Compare this against how long the equivalent setup took by hand a few minutes ago.</p>
-</div>
-</div>
-</div>
-<p>There is never a version of “just a quick figure” too small for this, and that cuts against instinct. A five-minute favor doesn’t feel like it deserves project scaffolding. But <code>init_project()</code> costs seconds, not minutes, so the real question was never “should I set this up properly?” It was “do I know in advance which tasks will turn into two-year projects?” Usually one doesn’t. Maris didn’t either, until Friday’s proposal got funded.</p>
-<p>Let’s take a first look at <code>_toolero.yml</code> now, because it will keep turning up. It is a few lines of plain YAML saying which folders this project has, where outputs go (<code>output_dir</code>), where derived scripts live (<code>script_dir</code>), and where split datasets go (<code>split_dir</code>). It is a note the project leaves for whoever reads it next: <code>check_project()</code>, a function you will meet after the break; <code>save_output()</code> and its relatives whenever you point them at it; and the <code>containr</code> and <code>submitr</code> sessions after this one. <code>.here</code> is simpler still. It holds nothing; its presence is the message, and after the break it is what lets every path in the analysis start from the same place.</p>
-<p>Here’s what a typical <code>_toolero.yml</code> looks like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># toolero project configuration</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Records the folder structure and naming conventions of a toolero project.</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># init_project() writes this file to the project root as _toolero.yml after</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># resolving the folder set. It records the RESOLVED structure, never the</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># inputs that produced it, so a project built from a config file, one built</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># with custom_folders, and one built from the defaults all produce the same</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># shape of file.</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Who reads it:</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   check_project()                  audits the project against this file</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   save_output(), generate_manifest(), read_output_records()</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    find the output folder from output_dir,</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   write_by_group()                 finds its split folder from split_dir,</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   containr::generate_dockerfile()  copies data-raw and assets into the</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    image and creates every folder there,</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   submitr::htc_gen_submit(),       find the job manifest from split_dir</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   submitr::htc_gen_executable()    and the output folder from output_dir,</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed htc_config(project_config = )</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Commit this file. It describes the project, not your machine.</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># You can also write one by hand with generate_project_config(), edit it, and</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># pass it to init_project(config = ) to drive the structure of a new project.</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">schema_version</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># One folder per line. Nested paths such as output/figures are supported.</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># When this file is passed to init_project(config = ), the list below</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># replaces the built-in default set entirely, so list every folder you want</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co"># created.</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">folders</span><span class="kw">:</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data-raw</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> scripts</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> output/figures</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> output/tables</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> reports</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Names the toolero family resolves rather than assumes.</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#   output_dir  where the analysis writes artifacts, read by save_output(),</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#               generate_manifest() and read_output_records()</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#   script_dir  where the .R script derived from the .qmd lives. The script</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#               travels with each cluster job, so containr does not copy it</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#               into the image</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#   split_dir   where write_by_group() writes its per-group subsets</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="fu">conventions</span><span class="kw">:</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> output</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script_dir</span><span class="kw">:</span><span class="at"> R</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split_dir</span><span class="kw">:</span><span class="at"> data/jobs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>It is fair to ask whether a project that never leaves your laptop needs either file, and the answer is yes, for two reasons. The first is immediate: <code>toolero</code> uses both today, on this laptop, with no container and no cluster in sight. The second is the long game. Together with <code>renv.lock</code> and the record of outputs you’ll meet after the break, these files describe what the project is, what it needs, and what it produces. That description is exactly what the family’s planned fourth package, <code>encapsulr</code>, is being designed to assemble into a self-describing research object: the analysis, its data, its software environment, and the provenance tying them together, packaged so it can be archived with a paper, handed to a reviewer, or deposited in a repository. None of that requires a cluster. A project started this way today will be ready for that step without being rebuilt.</p>
-<section id="literate-programming-and-why-a-.qmd-is-where-we-should-start" class="level3" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="literate-programming-and-why-a-.qmd-is-where-we-should-start"><span class="header-section-number">1.6.1</span> Literate programming, and why a <code>.qmd</code> is where we should start</h3>
-<p><code>create_qmd()</code> is the second piece of <code>toolero</code> we are exploring today, and I want to pause on <em>why</em> before showing <em>how</em>. A literate document intertwines narrative, code, and results in one file, rendered in the order a reader would want to encounter them. It is not a script with comments bolted on, and not a write-up that quotes code as an afterthought. The document doesn’t just produce the analysis; it <em>is</em> the analysis, in the same sense that a lab notebook is the record of an experiment rather than a summary of one written afterward.</p>
-<p>I am going to state the rest of the case as a claim and leave it untested for now: that for most projects the first file you create should be a <code>.qmd</code>, not an <code>.R</code> script. (I know the instinct runs the other way: a script is smaller, it is what most of us learned first, and a <code>.qmd</code> can feel like ceremony for a figure that took five minutes.) Claims in this session get tested against what happens, so we will come back to this one after the break, with the results of Task 4 in hand.</p>
+<p><code>init_project()</code> answers Task 2 in a single call, and <code>init_project()</code> would have answered Task 1 just as readily. Notice where the call lives: you type it at the Console, once, when a project begins, and it never appears inside a document or a script. Most of the functions you will meet in the next few minutes work the same way, which is why every code block in this lesson starts with a label saying where it goes.</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2876,45 +2875,80 @@ display: none;
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_qmd</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path             =</span> <span class="st">&quot;~/Documents/palmer-morphometrics&quot;</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/morphometrics-analysis.qmd&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">header_defaults  =</span> <span class="st">&quot;~/profile.yml&quot;</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_purl         =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>path</code> is the project, and <code>filename</code> says where inside it the document goes. The document lands in <code>reports/</code>, not the project root, and that choice matters in Part Two. <code>include_examples = FALSE</code> gives a clean document with only a header, ready for your own code.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(toolero)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">init_project</span>(<span class="at">path =</span> <span class="st">&quot;~/n2c-workshop/palmer-morphometrics&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Give <code>init_project()</code> a full path, as here, or one that starts with <code>~</code>. A short relative path such as <code>&quot;palmer-morphometrics&quot;</code> is read from the folder R is currently working in. Right now that folder is <code>n2c-workshop</code>, but opening a project changes it, and if a project is open at that moment, the new project would land inside it. We never nest one project inside another, because git and <code>toolero</code> each look upward for the nearest project marker, and a project inside a project makes it unclear which folder they will find.</p>
+<p>By default the call creates a standard research-project folder structure (<code>data-raw/</code>, <code>data/</code>, <code>R/</code>, <code>scripts/</code>, <code>output/figures/</code>, <code>output/tables/</code>, and <code>reports/</code>), initializes both <code>renv</code> and git, and writes two small files: <code>_toolero.yml</code>, which records the project’s folders and conventions, and <code>.here</code>, an empty file that marks this folder as the project’s root. Both <code>renv</code> and git are on by default. Compare this against how long the equivalent setup took by hand a few minutes ago.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="a-personal-profile-live" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="a-personal-profile-live"><span class="header-section-number">1.6.2</span> A personal profile, live</h3>
-<p><code>header_defaults</code> points at a small personal file holding your name, email, ORCID, institutional affiliation, and whatever else you find yourself retyping into every document’s header. You don’t have to write it from scratch; <code>generate_profile()</code> writes a commented template for you to fill in once, in your home directory by default:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_profile</span>(<span class="st">&quot;profile.yml&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The part you edit looks like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Erwin Lares&quot;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Research Cyberinfrastructure (RCI), Division of Information Technology, UW-Madison&quot;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orcid</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0000-0002-3284-828X&quot;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;erwin.lares@wisc.edu&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>create_qmd()</code> reads this and writes it straight into the new document’s YAML header. The profile can carry document preferences too (a table of contents, <code>embed-resources: true</code>, and so on), so every new document starts the way you like them. It’s a small thing, a header you didn’t have to retype, but it’s the same instinct as <code>init_project()</code>’s folder defaults: a decision you’d otherwise make identically, by hand, every single time, now made once and reused. (If you’ve seen older material that calls this argument <code>yaml_data</code>, that is the same thing under its previous name; it still works, with a deprecation warning, until <code>toolero</code> 0.7.0.)</p>
-<p>I will come back to this at the end of the session.</p>
-</section>
-<section id="the-purl-hook-in-one-paragraph" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="the-purl-hook-in-one-paragraph"><span class="header-section-number">1.6.3</span> The purl hook, in one paragraph</h3>
-<p>With <code>use_purl = TRUE</code>, <code>create_qmd()</code> also stamps <code>purl: true</code> into the document’s header and wires up a <code>_quarto.yml</code> post-render hook that runs a small script, <code>R/purl.R</code>, every time the document renders. The hook writes the document’s code chunks out as a plain <code>.R</code> script under <code>R/</code>, mirroring where the document lives: <code>reports/morphometrics-analysis.qmd</code> becomes <code>R/reports/morphometrics-analysis.R</code>. Why anyone would want a plain script next to a document they have just heard argued for is the question for the second half of the session, and I will answer it then. For now, you have one job: after you render in Task 3, check that the script appeared.</p>
-</section>
-</section>
-<section id="task-3-start-over-the-toolero-way" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="task-3-start-over-the-toolero-way"><span class="header-section-number">1.7</span> Task 3: start over, the toolero way</h2>
-<p>Now do what you did in Task 2, but with <code>toolero</code>:</p>
-<blockquote class="blockquote">
-<ol type="1">
-<li>Run <code>init_project()</code> to create a fresh project for the morphometrics analysis, and open it from the menu with File &gt; Open Project. (2) Copy the packages you need into the new project’s library with <code>renv::hydrate()</code>. (3) Run <code>create_qmd()</code> to scaffold <code>reports/morphometrics-analysis.qmd</code>, with <code>use_purl = TRUE</code>. (4) Copy <code>palmer-morphometrics-2024.csv</code> into <code>data-raw/</code>. (5) Move your Task 1 figure code into the document as two chunks, one that loads the packages and reads the CSV and one that draws the figure. Render it once, and run <code>renv::snapshot()</code>. You have about ten minutes.</li>
-</ol>
-</blockquote>
-<p>Opening the new project replaces your current window instead of adding a second one. That is on purpose: from here on you work in a single session, and this lesson stays open in your browser.</p>
+<p>There is never a version of “just a quick figure” too small for this, and that cuts against instinct. A five-minute favor doesn’t feel like it deserves project scaffolding. But <code>init_project()</code> costs seconds, not minutes, so the real question was never “should I set this up properly?” It was “do I know in advance which tasks will turn into two-year projects?” Usually one doesn’t. Maris didn’t either, until Friday’s proposal got funded.</p>
+<p>Let’s take a first look at <code>_toolero.yml</code> now, because the file will keep turning up. It is a few lines of plain YAML saying which folders this project has, where outputs go (<code>output_dir</code>), where derived scripts live (<code>script_dir</code>), and where split datasets go (<code>split_dir</code>). The file is a note the project leaves for whoever reads it next: <code>check_project()</code>, a function you will meet after the break; <code>save_output()</code> and its relatives whenever you point them at it; and the <code>containr</code> and <code>submitr</code> sessions after this one. <code>.here</code> is simpler still. The <code>.here</code> file holds nothing; its presence is the message, and after the break it is what lets every path in the analysis start from the same place.</p>
+<p>Here’s what a typical <code>_toolero.yml</code> looks like. You never type this file, since <code>init_project()</code> writes it for you, so it is shown here to be read and not to be copied:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Written by init_project(); you do not type this file</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># toolero project configuration</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Records the folder structure and naming conventions of a toolero project.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># init_project() writes this file to the project root as _toolero.yml after</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># resolving the folder set. It records the RESOLVED structure, never the</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># inputs that produced it, so a project built from a config file, one built</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># with custom_folders, and one built from the defaults all produce the same</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># shape of file.</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Who reads it:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   check_project()                  audits the project against this file</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   save_output(), generate_manifest(), read_output_records()</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    find the output folder from output_dir,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   write_by_group()                 finds its split folder from split_dir,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   containr::generate_dockerfile()  copies data-raw and assets into the</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    image and creates every folder there,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed config =</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   submitr::htc_gen_submit(),       find the job manifest from split_dir</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   submitr::htc_gen_executable()    and the output folder from output_dir,</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    when passed htc_config(project_config = )</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Commit this file. It describes the project, not your machine.</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># You can also write one by hand with generate_project_config(), edit it, and</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># pass it to init_project(config = ) to drive the structure of a new project.</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">schema_version</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># One folder per line. Nested paths such as output/figures are supported.</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># When this file is passed to init_project(config = ), the list below</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># replaces the built-in default set entirely, so list every folder you want</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># created.</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="fu">folders</span><span class="kw">:</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data-raw</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> R</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> scripts</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> output/figures</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> output/tables</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> reports</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Names the toolero family resolves rather than assumes.</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#   output_dir  where the analysis writes artifacts, read by save_output(),</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co">#               generate_manifest() and read_output_records()</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co">#   script_dir  where the .R script derived from the .qmd lives. The script</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">#               travels with each cluster job, so containr does not copy it</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co">#               into the image</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="co">#   split_dir   where write_by_group() writes its per-group subsets</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="fu">conventions</span><span class="kw">:</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">output_dir</span><span class="kw">:</span><span class="at"> output</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script_dir</span><span class="kw">:</span><span class="at"> R</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split_dir</span><span class="kw">:</span><span class="at"> data/jobs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It is fair to ask whether a project that never leaves your laptop needs either file, and the answer is yes, for two reasons. The first is immediate: <code>toolero</code> uses both today, on this laptop, with no container and no cluster in sight. The second is the long game. Together with <code>renv.lock</code> and the record of outputs you’ll meet after the break, these files describe what the project is, what it needs, and what it produces. That description is exactly what the family’s planned fourth package, <code>encapsulr</code>, is being designed to assemble into a self-describing research object: the analysis, its data, its software environment, and the provenance tying them together, packaged so it can be archived with a paper, handed to a reviewer, or deposited in a repository. None of that requires a cluster. A project started this way today will be ready for that step without being rebuilt.</p>
+<section id="literate-programming-and-why-a-.qmd-is-where-we-should-start" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="literate-programming-and-why-a-.qmd-is-where-we-should-start"><span class="header-section-number">1.6.1</span> Literate programming, and why a <code>.qmd</code> is where we should start</h3>
+<p><code>create_qmd()</code> is the second piece of <code>toolero</code> we are exploring today, and I want to pause on <em>why</em> before showing <em>how</em>. A literate document intertwines narrative, code, and results in one file, rendered in the order a reader would want to encounter them. A literate document is not a script with comments bolted on, and not a write-up that quotes code as an afterthought. The document doesn’t just produce the analysis; the document <em>is</em> the analysis, in the same sense that a lab notebook is the record of an experiment rather than a summary of one written afterward.</p>
+<p>I am going to state the rest of the case as a claim and leave it untested for now: that for most projects the first file you create should be a <code>.qmd</code>, not an <code>.R</code> script. (I know the instinct runs the other way: a script is smaller, it is what most of us learned first, and a <code>.qmd</code> can feel like ceremony for a figure that took five minutes.) Claims in this session get tested against what happens, so we will come back to this one after the break, with the results of Task 4 in hand.</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2927,41 +2961,99 @@ display: none;
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>From inside the new project, where <code>path</code> can stay at its default of <code>&quot;.&quot;</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">hydrate</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;toolero&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;rmarkdown&quot;</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>toolero<span class="sc">::</span><span class="fu">create_qmd</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/morphometrics-analysis.qmd&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_purl         =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Your Task 1 code goes into the document as two chunks, because Task 4 will ask you to run the line that reads the data apart from the code that draws the figure. The <code>library()</code> calls and the read call go together in the first chunk:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>::: {.cell}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_qmd</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/morphometrics-analysis.qmd&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">header_defaults  =</span> <span class="st">&quot;~/profile.yml&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_purl         =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>filename</code> says where inside the project the document goes. You call <code>create_qmd()</code> from the Console, once per document, and the function writes a file that you then edit as Source. The document lands in <code>reports/</code>, not the project root, and that choice matters in Part Two. <code>include_examples = FALSE</code> gives a clean document with only a header, ready for your own code.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-personal-profile-live" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="a-personal-profile-live"><span class="header-section-number">1.6.2</span> A personal profile, live</h3>
+<p><code>header_defaults</code> points at a small personal file holding your name, email, ORCID, institutional affiliation, and whatever else you find yourself retyping into every document’s header. You don’t have to write it from scratch; <code>generate_profile()</code> writes a commented template for you to fill in once, in your home directory by default:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_profile</span>(<span class="st">&quot;profile.yml&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The part you edit, in the file the call just wrote, looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: profile.yml, a file you edit once</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Erwin Lares&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Research Cyberinfrastructure (RCI), Division of Information Technology, UW-Madison&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orcid</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0000-0002-3284-828X&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;erwin.lares@wisc.edu&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>create_qmd()</code> reads this and writes it straight into the new document’s YAML header. The profile can carry document preferences too (a table of contents, <code>embed-resources: true</code>, and so on), so every new document starts the way you like them. A pre-filled header is a small thing, but it follows the same instinct as <code>init_project()</code>’s folder defaults: a decision you’d otherwise make identically, by hand, every single time, now made once and reused. (If you’ve seen older material that calls this argument <code>yaml_data</code>, that is the same argument under its previous name, and <code>yaml_data</code> still works, with a deprecation warning, until <code>toolero</code> 0.7.0.)</p>
+<p>I will come back to this at the end of the session.</p>
+</section>
+<section id="the-purl-hook-in-one-paragraph" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="the-purl-hook-in-one-paragraph"><span class="header-section-number">1.6.3</span> The purl hook, in one paragraph</h3>
+<p>With <code>use_purl = TRUE</code>, <code>create_qmd()</code> also stamps <code>purl: true</code> into the document’s header and wires up a <code>_quarto.yml</code> post-render hook that runs a small script, <code>R/purl.R</code>, every time the document renders. The hook writes the document’s code chunks out as a plain <code>.R</code> script in <code>R/</code>, named after the document: <code>reports/morphometrics-analysis.qmd</code> becomes <code>R/morphometrics-analysis.R</code>. (In a Quarto website, where many documents share a filename such as <code>index.qmd</code>, the hook mirrors the document’s folders under <code>R/</code> instead. A project like this one is not a website, so the script lands directly in <code>R/</code>.) Why anyone would want a plain script next to a document they have just heard argued for is the question for the second half of the session, and I will answer that question then. For now, you have one job: after you render in Task 3, check that the script appeared.</p>
+</section>
+</section>
+<section id="task-3-start-over-the-toolero-way" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="task-3-start-over-the-toolero-way"><span class="header-section-number">1.7</span> Task 3: start over, the toolero way</h2>
+<p>Now do what you did in Task 2, but with <code>toolero</code>. First, a rule that holds for the whole workshop: close the project you have open before you create or open another one (in RStudio, File &gt; Close Project), and never put one project inside another. Each project gets a folder of its own, and all of them live inside <code>n2c-workshop</code>, beside one another. Your Task 2 project, if you made one, counts too, so close it now.</p>
+<blockquote class="blockquote">
+<ol type="1">
+<li>From the Console, run <code>init_project()</code> to create a fresh project for the morphometrics analysis, inside <code>n2c-workshop</code> and beside your Task 2 project, with the full path <code>~/n2c-workshop/palmer-morphometrics</code>, and then open the new project from the menu with File &gt; Open Project. (2) From the Console of the new project, copy the packages you need into its library with <code>renv::hydrate()</code>. (3) Still at the Console, run <code>create_qmd()</code> to scaffold <code>reports/morphometrics-analysis.qmd</code>, with <code>use_purl = TRUE</code>.</li>
+<li>Copy <code>palmer-morphometrics-2024.csv</code> into <code>data-raw/</code>. (5) In the document, which is Source, move your Task 1 figure code into two chunks, one that loads the packages and reads the CSV and one that draws the figure. Render the document once, and then run <code>renv::snapshot()</code> at the Console. You have about ten minutes.</li>
+</ol>
+</blockquote>
+<p>Opening the new project closes the one you had open and replaces your current window instead of adding a second one. That is on purpose: from here on you work in a single session, and this lesson stays open in your browser. Treat the project you are building now as practice. At the end of the session I will give you a larger project, <code>minimal-project</code>, and it will replace this one as the starting point for the next session, so you do not need to polish what you make today.</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Show me the call
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>From the Console of the new project, where <code>path</code> can stay at its default of <code>&quot;.&quot;</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">hydrate</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;toolero&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;rmarkdown&quot;</span>, <span class="st">&quot;ragg&quot;</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;palmer-morphometrics-2024.csv&quot;</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>::: {.cell}</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ...and the rest of your Task 1 plot code</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If your first render stops with a file-not-found error, that is expected, and it is the same error for everyone. Quarto runs a document from the folder it lives in, <code>reports/</code>, and a path that works from the project root will not find the file from there. The error message shows where Quarto looked. Adjust the path in your read chunk until the render succeeds, and then run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The new project starts with an empty package library, and <code>renv</code> keeps the packages you installed before today out of sight while you work inside it. <code>renv::hydrate()</code> copies the ones you name from the library you already have, so nothing is downloaded twice. (Called with no packages, it copies whatever the project’s code uses, and a brand-new project has no code yet.) <code>rmarkdown</code> is on the list because Quarto needs it to render a document with R code in it.</p>
-<p><code>init_project()</code> already wrote a starting <code>renv.lock</code>. <code>renv::snapshot()</code> updates it into the record of which packages (and which versions) this analysis actually used, and it’s the file the <code>containr</code> session reads.</p>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>toolero<span class="sc">::</span><span class="fu">create_qmd</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/morphometrics-analysis.qmd&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_purl         =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Your Task 1 code goes into the document as two chunks, which is Source, because Task 4 will ask you to run the line that reads the data apart from the code that draws the figure. The <code>library()</code> calls and the read call go together in the first chunk:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>::: {.cell}</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: reports/morphometrics-analysis.qmd</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;palmer-morphometrics-2024.csv&quot;</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>::: {.cell}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: reports/morphometrics-analysis.qmd</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ...and the rest of your Task 1 plot code</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If your first render stops with a file-not-found error, that is expected, and the error is the same for everyone. Quarto runs a document from the folder it lives in, <code>reports/</code>, and a path that works from the project root will not find the file from there. The error message shows where Quarto looked. Adjust the path in your read chunk until the render succeeds, and then run, back at the Console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The new project starts with an empty package library, and <code>renv</code> keeps the packages you installed before today out of sight while you work inside the project. <code>renv::hydrate()</code> copies the ones you name from the library you already have, so nothing is downloaded twice. (Called with no packages, <code>renv::hydrate()</code> copies whatever the project’s code uses, and a brand-new project has no code yet.) <code>rmarkdown</code> is on the list because Quarto needs <code>rmarkdown</code> to render a document with R code in it. <code>ragg</code> is there because R may ask for it once it restarts inside the new project, and copying it now saves you a detour.</p>
+<p><code>init_project()</code> already wrote a starting <code>renv.lock</code>. <code>renv::snapshot()</code> updates that file into the record of which packages (and which versions) this analysis actually used, and <code>renv.lock</code> is the file the <code>containr</code> session reads.</p>
 </div>
 </div>
 </div>
@@ -2971,7 +3063,7 @@ display: none;
 <h1 data-number="2"><span class="header-section-number">2</span> Part Two: When the Document Has to Run More Than One Way</h1>
 <section id="framing-one-document-two-ways-to-run-it" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="framing-one-document-two-ways-to-run-it"><span class="header-section-number">2.1</span> Framing: one document, two ways to run it</h2>
-<p>So far, <code>morphometrics-analysis.qmd</code> has only ever been run one way: however you personally happened to build and check it in Task 3. In practice, the same document tends to get run at least two different ways over its life. You step through its chunks interactively in RStudio while you’re working on it, and you call <code>quarto render</code> when you want the finished report. Those two modes don’t always agree on where “here” is on disk, which matters quite a bit for a line of code like <code>read_csv(&quot;../data-raw/palmer-morphometrics-2024.csv&quot;)</code>, the spelling many of you settled on in Task 3 to make the render work.</p>
+<p>So far, <code>morphometrics-analysis.qmd</code> has only ever been run one way: however you personally happened to build and check the document in Task 3. In practice, the same document tends to get run at least two different ways over its life. You step through its chunks interactively in RStudio while you’re working on the document, and you call <code>quarto render</code> when you want the finished report. Those two modes don’t always agree on where “here” is on disk, which matters quite a bit for a line of code like <code>read_csv(&quot;../data-raw/palmer-morphometrics-2024.csv&quot;)</code>, the spelling many of you settled on in Task 3 to make the render work.</p>
 </section>
 <section id="task-4-run-it-every-way-then-break-it-on-purpose" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="task-4-run-it-every-way-then-break-it-on-purpose"><span class="header-section-number">2.2</span> Task 4: run it every way, then break it on purpose</h2>
@@ -2979,7 +3071,7 @@ display: none;
 <p>Maris’s grant is funded, and a collaborator at another university now wants to rerun the analysis on her own laptop. Before you hand it over, you want to be sure the document holds up. There is no new data this time; the thing under test is <code>morphometrics-analysis.qmd</code> itself. You have about eight minutes.</p>
 <ol type="1">
 <li>Restart R (in RStudio, Session &gt; Restart R). Then run the chunks one at a time, from the top, until the figure appears. Note anything you had to change for that to work.</li>
-<li>Render the document. Does it find the data? Is the figure the same?</li>
+<li>Render the document. Does the document find the data? Is the figure the same?</li>
 <li>Now break it on purpose. Put a <code>#</code> in front of the one line that reads the CSV (the <code>penguins &lt;- read_csv(...)</code> line in your read chunk, and nothing else). Run the plot chunk by itself. Does a figure still appear?</li>
 <li>Render again. What happens?</li>
 </ol>
@@ -3019,87 +3111,41 @@ display: none;
 </section>
 <section id="why-the-document-comes-first" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="why-the-document-comes-first"><span class="header-section-number">2.4</span> Why the document comes first</h2>
-<p>Before the break I made a claim and left it hanging: that for most projects the first file you create should be a <code>.qmd</code>, not an <code>.R</code> script. Task 4 was the test, and the evidence is on your screens.</p>
+<p>Before the break I made a claim and left that claim hanging: that for most projects the first file you create should be a <code>.qmd</code>, not an <code>.R</code> script. Task 4 was the test, and the evidence is on your screens.</p>
 <p>Recall what you all saw. You commented out the line that reads the data, and the plot chunk still drew the figure, because an object called <code>penguins</code> was sitting in your session, left behind by the very line you had just removed. Nothing failed. Nothing warned. (Question 4 of Poll 3 asked who saw that coming.) The render could not have made that mistake. <code>quarto render</code> starts a fresh R session and runs the document from the first line to the last, so every object the document uses has to be created by the document itself, in the order it appears. In other words, a successful render is a small proof that the analysis can be rebuilt from nothing. Stepping through code at the console never has to prove that, and a script you have been running line by line all afternoon is exactly the kind of thing that is likely to introduce errors.</p>
 <p>Two more reasons are visible in today’s work. The first is the one from Poll 1: when someone else opens your folder, a document tells them what the analysis is for, what it shows, and how it got there, in one place and in the order a reader wants it. A script with comments leaves most of that to the reader. The second is that a document’s header can state what the analysis takes in. The <code>params:</code> block you are about to use is the document saying, in writing, “give me an input file,” which is why a collaborator can point the same document at her own copy of the data without editing the code.</p>
-<p>None of this makes scripts bad, and I would not want you to leave with that impression. It makes a document the better place to <em>work</em>: to explore, to explain, to check. Whether it is also the best thing to <em>run</em> is a separate question, and the answer is not always yes.</p>
+<p>None of this makes scripts bad, and I would not want you to leave with that impression. What it does show is that a document is the better place to <em>work</em>: to explore, to explain, to check. Whether a document is also the best thing to <em>run</em> is a separate question, and the answer is not always yes.</p>
 </section>
 <section id="and-yet-why-a-machine-wants-a-script" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="and-yet-why-a-machine-wants-a-script"><span class="header-section-number">2.5</span> And yet: why a machine wants a script</h2>
 <p>Push the scenario one step further:</p>
 <blockquote class="blockquote">
-<p>Six months from now, this analysis needs to run as part of a larger, automated pipeline: something that starts a job on a machine you will never log into, with no human at the Render button and no one to read the result. You already have a plain script for it. It appeared in <code>R/reports/</code> when you rendered in Task 3, and I owe you an explanation of where it came from.</p>
+<p>Six months from now, this analysis needs to run as part of a larger, automated pipeline: something that starts a job on a machine you will never log into, with no human at the Render button and no one to read the result. You already have a plain script for that job. The script appeared in <code>R/</code> when you rendered in Task 3, and I owe you an explanation of where it came from.</p>
 </blockquote>
-<p>Open a terminal at the project root (RStudio’s Terminal tab starts there) and run it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/reports/morphometrics-analysis.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>There’s now a third context, with its own notion of “here”. <code>Rscript</code> reads every relative path, the script’s own and every path inside it, from the folder the terminal is sitting in when you launch it. From the project root, <code>R/reports/morphometrics-analysis.R</code> finds the script, but a read path spelled for the render, from <code>reports/</code>, now points one folder too high. Move the terminal to another folder and the same script behaves differently, so running a script with <code>Rscript</code> means being aware of where you are launching it from. We will fix that shortly. First, the question I promised: why would a pipeline run a script when we have just spent a few minutes arguing for the document?</p>
-<p>I can give three reasons. None of them is overwhelming for one small analysis, and all of them multiply when a job runs hundreds of times on machines you cannot see. The first is fewer moving parts. <code>Rscript</code> needs R and your packages. Rendering also needs Quarto, and whatever Quarto calls on to do its work, installed and working on the node, and every extra tool is one more thing that has to be present on a machine you can’t log into. (The next session makes this concrete: everything a job needs goes into a container image, so every extra tool is another layer in it.) The second is that there is no reader. The deliverable of an unattended job is files on disk and an answer to “did it work.” A rendered report is something nobody will open at 2 a.m., and producing it costs time and can fail for reasons unrelated to your analysis, for instance, a stylesheet path. The third is that the command line is the interface a scheduler speaks. <code>Rscript script.R some-file.csv</code> is about as small an interface as exists, and every job scheduler already knows how to launch it. (Quarto can take parameters and report failure too, so this is a matter of weight, not of capability.)</p>
-<p>So the document is where you work, and a script is what a machine runs. That leaves a question, and it is the one the sixth item in Poll 1 asked: if both exist, who keeps them in sync?</p>
+<p>Open a terminal at the project root (RStudio’s Terminal tab starts there) and run the script. This one goes in the Terminal, not the Console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal, from the project root</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/morphometrics-analysis.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There’s now a third context, with its own notion of “here”. <code>Rscript</code> reads every relative path, the script’s own and every path inside it, from the folder the terminal is sitting in when you launch it. From the project root, <code>R/morphometrics-analysis.R</code> finds the script, but a read path spelled for the render, from <code>reports/</code>, now points one folder too high. Move the terminal to another folder and the same script behaves differently, so running a script with <code>Rscript</code> means being aware of where you are launching the script from. We will fix that shortly. First, the question I promised: why would a pipeline run a script when we have just spent a few minutes arguing for the document?</p>
+<p>I can give three reasons. None of them is overwhelming for one small analysis, and all of them multiply when a job runs hundreds of times on machines you cannot see. The first is fewer moving parts. <code>Rscript</code> needs R and your packages. Rendering also needs Quarto, and whatever Quarto calls on to do its work, installed and working on the node, and every extra tool is one more thing that has to be present on a machine you can’t log into. (The next session makes this concrete: everything a job needs goes into a container image, so every extra tool is another layer in it.) The second is that there is no reader. The deliverable of an unattended job is files on disk and an answer to “did it work.” A rendered report is something nobody will open at 2 a.m., and producing it costs time and can fail for reasons unrelated to your analysis, for instance, a stylesheet path. The third is that the command line is the interface a scheduler speaks. <code>Rscript script.R some-file.csv</code> is about as small an interface as exists, and every job scheduler already knows how to launch that command. (Quarto can take parameters and report failure too, so this is a matter of weight, not of capability.)</p>
+<p>So the document is where you work, and a script is what a machine runs. That leaves a question, and the sixth item in Poll 1 asked that same question: if both exist, who keeps them in sync?</p>
 </section>
 <section id="the-purl-hook-one-source-two-artifacts" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="the-purl-hook-one-source-two-artifacts"><span class="header-section-number">2.6</span> The purl hook: one source, two artifacts</h2>
-<p>The answer is neither to choose nor to maintain both. It is to write one and generate the other, and that is the job of the hook you switched on with <code>use_purl = TRUE</code>. The <code>.qmd</code> is the file you edit. Every time it renders, the post-render hook runs <code>R/purl.R</code>, which extracts the document’s code into its <code>.R</code> twin. Nobody types the script, so nobody can forget to update it. Humans read documents, machines run scripts, and nobody maintains both.</p>
-<p>The second half of the lab below uses a function you haven’t met yet. <code>check_project()</code> audits a project. It walks through a checklist of what a well-kept project should have (the folders, <code>renv.lock</code>, git, and a few more) and prints one row per item, saying whether it passed. We will read the whole report at the end of the day. For now, one row matters: for every document marked <code>purl: true</code>, <code>check_project()</code> checks that its script exists and that the script is newer than the document.</p>
+<p>The answer is neither to choose nor to maintain both, but to write one and generate the other, and that is the job of the hook you switched on with <code>use_purl = TRUE</code>. The <code>.qmd</code> is the file you edit. Every time the document renders, the post-render hook runs <code>R/purl.R</code>, which extracts the document’s code into its <code>.R</code> twin. Nobody types the script, so nobody can forget to update the script. Humans read documents, machines run scripts, and nobody maintains both.</p>
+<p>The second half of the lab below uses a function you haven’t met yet. <code>check_project()</code> audits a project. The function walks through a checklist of what a well-kept project should have (the folders, <code>renv.lock</code>, git, and a few more) and prints one row per item, saying whether that item passed. You call it from the Console, since it looks at the project from the outside. We will read the whole report at the end of the day. For now, one row matters: for every document marked <code>purl: true</code>, <code>check_project()</code> checks that its script exists and that the script is newer than the document.</p>
 <blockquote class="blockquote">
-<p><strong>Lab (three minutes).</strong> In your <code>morphometrics-analysis.qmd</code>, change the plot’s title and render. Open <code>R/reports/morphometrics-analysis.R</code> and find the new title: you never touched that file. Then change the title once more and, this time, save but do <em>not</em> render. Run <code>check_project()</code> from the project root and find the row for your document.</p>
+<p><strong>Lab (three minutes).</strong> In your <code>morphometrics-analysis.qmd</code>, change the plot’s title and render. Open <code>R/morphometrics-analysis.R</code> and find the new title: you never touched that file. Then change the title once more and, this time, save but do <em>not</em> render. Then, at the Console, run <code>check_project()</code> from the project root and find the row for your document.</p>
 </blockquote>
-<p>The second half of the lab is where the limit shows. The hook fires when the document renders, so if you edit and forget to render, the script is one edit behind, and a pipeline that runs it will run yesterday’s analysis without a word of complaint. <code>check_project()</code> is the safety net: it compares the two files and names the script as stale. The other limit runs the opposite way. The <code>.R</code> is generated, so if you edit it by hand, your edit is overwritten at the next render. The working rule fits in one line: edit the <code>.qmd</code>, render, and treat the <code>.R</code> as output. Follow it and the two files cannot drift apart in content. (That is “by construction,” with one asterisk, and the asterisk is the render.)</p>
-<p>If forgetting to render worries you, there are a few things you can do to make it less likely. In RStudio you can tick the <em>Render on Save</em> checkbox yourself. You can also ask for it in the document’s front matter and, if you want it for every document in the project, in <code>_quarto.yml</code>. I haven’t decided one way or another whether I want <code>toolero</code> to make that choice for you, but I am leaning toward making it visible at the very least.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">editor</span><span class="kw">:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render-on-save</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That settles drift in <em>content</em>. Drift in <em>behavior</em> is a different problem, and Task 4 and the <code>Rscript</code> demo already showed where it comes from: the document and its script run in three different places, and each has its own idea of where “here” is. Three contexts, one read call. That is the next problem <code>toolero</code> offers a solution for.</p>
+<p>The second half of the lab is where the limit shows. The hook fires when the document renders, so if you edit and forget to render, the script is one edit behind, and a pipeline that runs the script will run yesterday’s analysis without a word of complaint. <code>check_project()</code> is the safety net: the function compares the two files and names the script as stale. The other limit runs the opposite way. The <code>.R</code> is generated, so if you edit the <code>.R</code> by hand, your edit is overwritten at the next render. (The first line of the script says as much: it names the document the script came from, which is the file to edit.) The working rule fits in one line: edit the <code>.qmd</code>, render, and treat the <code>.R</code> as output. Follow that rule and the two files cannot drift apart in content. (That is “by construction,” with one asterisk, and the asterisk is the render.)</p>
+<p>If forgetting to render worries you, there are a few things you can do to make it less likely. In RStudio you can tick the <em>Render on Save</em> checkbox yourself. You can also ask for that setting in the document’s front matter and, if you want it for every document in the project, in <code>_quarto.yml</code>. I haven’t decided one way or another whether I want <code>toolero</code> to make that choice for you, but I am leaning toward making it visible at the very least.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: the YAML header of your .qmd, or _quarto.yml</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">editor</span><span class="kw">:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render-on-save</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That settles drift in <em>content</em>. Drift in <em>behavior</em> is a different problem, and Task 4 and the <code>Rscript</code> demo already showed where the disagreement comes from: the document and its script run in three different places, and each has its own idea of where “here” is. Three contexts, one read call. That is the next problem <code>toolero</code> offers a solution for.</p>
 </section>
 <section id="tooleros-answer-resolve_input_path" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="tooleros-answer-resolve_input_path"><span class="header-section-number">2.7</span> toolero’s answer: <code>resolve_input_path()</code></h2>
 <p><code>resolve_input_path()</code> takes one argument per context, <code>interactive</code>, <code>quarto</code>, and <code>rscript</code>, works out at runtime which of the three it is currently in, and returns the path that context should use. One function call, one document, no separately maintained versions.</p>
-<div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Show me the call
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(toolero)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>input_file <span class="ot">&lt;-</span> <span class="fu">resolve_input_path</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">interactive =</span> <span class="st">&quot;data-raw/palmer-morphometrics-2024.csv&quot;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(input_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Only the <code>interactive</code> argument is spelled out, because the other two have defaults that already do the right thing. Under <code>quarto render</code>, the <code>quarto</code> argument falls back to a document parameter, <code>params$input_file</code>. That requires a <code>params:</code> entry in the document’s YAML header:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input_file</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;data-raw/palmer-morphometrics-2024.csv&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that both paths are spelled the same way, from the project root, even though <code>quarto render</code> runs the document from <code>reports/</code>. In the interactive and Quarto contexts, <code>resolve_input_path()</code> reads a relative path from the project root, the folder marked by the <code>.here</code> file <code>init_project()</code> wrote, not from wherever the code happens to be running. That is the whole disagreement from Part Two’s opening, removed at the source.</p>
-<p>Under <code>Rscript</code>, the <code>rscript</code> argument falls back to the first thing typed after the script’s name on the command line. <code>Rscript</code> reads that argument from the folder the terminal is sitting in, so launch it from the project root and the same spelling works there too:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/reports/morphometrics-analysis.R <span class="dt">\</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  data-raw/palmer-morphometrics-2024.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Your script only draws a figure, so a successful run leaves little to see. R writes any figure a script draws to a file called <code>Rplots.pdf</code>, in the folder you launched from. The next segment shows a script that leaves a good deal more behind.</p>
-<p>This is a brief, deliberate use of Quarto parameters, not a full detour into parameterized rendering. The point is narrower than that. Once the document knows <em>which</em> context it’s in, each context can resolve its input the way that context expects, and the same <code>.qmd</code>, along with its purl-generated <code>.R</code> twin, runs correctly whether it’s rendered, stepped through interactively, or called from a shell script at 2 a.m. with nobody watching.</p>
-</div>
-</div>
-</div>
-<p>Once your document calls <code>resolve_input_path()</code>, run <code>renv::snapshot()</code> once more, so that <code>renv.lock</code> keeps up with what the document now uses.</p>
-<p>Two properties of <code>resolve_input_path()</code> separate it from writing the same logic by hand. First, only the argument for the current context is ever evaluated. A document with no <code>params:</code> block still runs from <code>Rscript</code>, and if you render it anyway, you get a message pointing at the missing YAML entry rather than R’s <code>object &#39;params&#39; not found</code>. Second, by default it checks that the file it resolved actually exists (<code>must_exist = TRUE</code>) and says which context it was in when it didn’t, which turns “where is here?” from a guessing game into one line of explanation.</p>
-<p>The input is not the only path in the document, though. Anything the analysis writes has the same problem in reverse. A bare <code>ggsave(&quot;output/figures/bill.png&quot;)</code> works interactively from the project root, where <code>output/figures/</code> exists. Run from <code>reports/</code>, it looks for <code>reports/output/figures/</code> instead. In an interactive session, <code>ggsave()</code> offers to create that folder and waits for you to answer, and saying yes is how results quietly end up in <code>reports/output/</code>. Under <code>quarto render</code> there is nobody to answer, so the render stops with an error. The fix is the same rule, applied to every other path in your code: start at the project root, and write it with <code>here::here()</code>, which finds the same <code>.here</code> file.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;output&quot;</span>, <span class="st">&quot;figures&quot;</span>, <span class="st">&quot;bill-morphometrics.png&quot;</span>), bill_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On a cluster, where there is no project root to find, <code>here::here()</code> falls back to the job’s working directory, which is where the results need to land anyway. The one exception is the paths in the document’s own YAML header, such as a stylesheet: Quarto resolves those from the document itself, so they stay relative to <code>reports/</code>.</p>
-<p>This is the other half of the loop the purl hook opened. The hook kept the document and its script from drifting apart in <em>content</em>; <code>resolve_input_path()</code> keeps them from needing to drift apart in <em>behavior</em> either, across however many contexts they end up running in.</p>
-</section>
-</section>
-<section id="part-three-from-one-figure-to-a-whole-analysis" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Part Three: From One Figure to a Whole Analysis</h1>
-<section id="leaving-a-record-and-meeting-the-minimal-project" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="leaving-a-record-and-meeting-the-minimal-project"><span class="header-section-number">3.1</span> Leaving a record, and meeting the minimal project</h2>
-<p>Your document draws one figure. That was the right size for Maris’s first favor, but it is not the size of most real analyses. A typical analysis, in almost any discipline, does about the same handful of things: it loads some data and checks what came through, makes a figure or two, summarizes something, fits a model, and writes the results somewhere a collaborator or a manuscript can find them. The figure from Task 1 is one of those jobs. For authenticity’s sake, we’ll work with a more comprehensive document, one that better reflects the realities of research.</p>
-<p>The minimal project is the smallest project I could build that does all of them, and its document, <code>reports/morphometrics-analysis.qmd</code>, is the expanded version of yours. The document picks up the Sphen Lab story where we left it: after the first figure, the obvious next asks are a summary of flipper length by species and a model relating flipper length to body mass, and Maris will almost certainly want every result saved. The document runs in four stages: load the observations and check what came through, draw the bill figure (yours, again), summarize flipper length by species, and fit the small model. It closes with the record of what it wrote and a short table of where it ran. It is deliberately modest, so that it can stand in for whatever your own analysis does. The data would differ; the kinds of work would not.</p>
-<p>It is also the document we carry through the next two sessions. In the next one it goes into a container, and in the one after that it goes to a cluster, and it was written to survive both trips: every path in it starts at the project root, it finds its input with <code>resolve_input_path()</code>, it writes everything under <code>output/</code>, and it ends by recording what it wrote. Let’s stop on that last habit.</p>
-<p>There is one question left from the 2 a.m. scenario, and it is the one people usually ask too late. When the document ran with nobody watching, what did it actually produce? Did every file get written, or did the third figure fail halfway through? A folder of outputs cannot tell you which of its files are from tonight’s run and which are left over from last week’s.</p>
-<p><code>save_output()</code> answers that by wrapping whatever function writes the file. It calls the writer for you, and on the way it appends a line to <code>output/accumulator.csv</code>: the file, the kind of object, the function that wrote it, whether the write succeeded (and the error, if it did not), and an optional note. At the end of the document, <code>generate_manifest()</code> collapses those lines into the <em>output record</em>, <code>output/project-manifest.json</code>, one entry per file, along with the git commit the document was run from.</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -3112,67 +3158,139 @@ display: none;
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave() takes the file name first and the plot second, the reverse of</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the order save_output() passes them in, so it needs a small wrapper.</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>save_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(object, file_path, ...) {</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggsave</span>(<span class="at">filename =</span> file_path, <span class="at">plot =</span> object, ...)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save_output</span>(</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  bill_plot,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;output&quot;</span>, <span class="st">&quot;figures&quot;</span>, <span class="st">&quot;bill-morphometrics.png&quot;</span>),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f     =</span> save_plot,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">width  =</span> <span class="dv">7</span>,</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>,</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi    =</span> <span class="dv">300</span>,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">note   =</span> <span class="st">&quot;The appendix figure&quot;</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And as the document’s last chunk:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_manifest</span>(<span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>overwrite = TRUE</code> because every render writes a fresh record. Then, from the console:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_output_records</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: a chunk in reports/morphometrics-analysis.qmd</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(toolero)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>input_file <span class="ot">&lt;-</span> <span class="fu">resolve_input_path</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">interactive =</span> <span class="st">&quot;data-raw/palmer-morphometrics-2024.csv&quot;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(input_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This call is part of the analysis, so it goes in the document, as Source, and not at the Console. Only the <code>interactive</code> argument is spelled out, because the other two have defaults that already do the right thing. Under <code>quarto render</code>, the <code>quarto</code> argument falls back to a document parameter, <code>params$input_file</code>. That requires a <code>params:</code> entry in the document’s YAML header:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: the YAML header of reports/morphometrics-analysis.qmd</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input_file</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;data-raw/palmer-morphometrics-2024.csv&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that both paths are spelled the same way, from the project root, even though <code>quarto render</code> runs the document from <code>reports/</code>. In the interactive and Quarto contexts, <code>resolve_input_path()</code> reads a relative path from the project root, the folder marked by the <code>.here</code> file <code>init_project()</code> wrote, not from wherever the code happens to be running. That is the whole disagreement from Part Two’s opening, removed at the source.</p>
+<p>Under <code>Rscript</code>, the <code>rscript</code> argument falls back to the first thing typed after the script’s name on the command line. <code>Rscript</code> reads that argument from the folder the terminal is sitting in, so launch it from the project root and the same spelling works there too:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal, from the project root</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/morphometrics-analysis.R <span class="dt">\</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  data-raw/palmer-morphometrics-2024.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Your script only draws a figure, so a successful run leaves little to see. R writes any figure a script draws to a file called <code>Rplots.pdf</code>, in the folder you launched from. The next segment shows a script that leaves a good deal more behind.</p>
+<p>This is a brief, deliberate use of Quarto parameters, not a full detour into parameterized rendering. The point is narrower than that. Once the document knows <em>which</em> context it’s in, each context can resolve its input the way that context expects, and the same <code>.qmd</code>, along with its purl-generated <code>.R</code> twin, runs correctly whether it’s rendered, stepped through interactively, or called from a shell script at 2 a.m. with nobody watching.</p>
 </div>
 </div>
 </div>
-<p>Let’s run it the way a pipeline would. With <code>output/</code> emptied, one call from the project root runs the whole analysis, with nobody at the Render button:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/reports/morphometrics-analysis.R <span class="dt">\</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  data-raw/palmer-morphometrics-2024.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>When it finishes, <code>output/</code> holds every figure, table, and model the document writes, and the record says which of those writes succeeded.</p>
+<p>Once your document calls <code>resolve_input_path()</code>, run <code>renv::snapshot()</code> once more, so that <code>renv.lock</code> keeps up with what the document now uses.</p>
+<p>Two properties of <code>resolve_input_path()</code> separate it from writing the same logic by hand. First, only the argument for the current context is ever evaluated. A document with no <code>params:</code> block still runs from <code>Rscript</code>, and if you render the document anyway, you get a message pointing at the missing YAML entry rather than R’s <code>object &#39;params&#39; not found</code>. Second, by default the function checks that the file it resolved actually exists (<code>must_exist = TRUE</code>) and says which context it was in when it didn’t, which turns “where is here?” from a guessing game into one line of explanation.</p>
+<p>The input is not the only path in the document, though. Anything the analysis writes has the same problem in reverse. A bare <code>ggsave(&quot;output/figures/bill.png&quot;)</code> works interactively from the project root, where <code>output/figures/</code> exists. Run from <code>reports/</code>, it looks for <code>reports/output/figures/</code> instead. In an interactive session, <code>ggsave()</code> offers to create that folder and waits for you to answer, and saying yes is how results quietly end up in <code>reports/output/</code>. Under <code>quarto render</code> there is nobody to answer, so the render stops with an error. The fix is the same rule, applied to every other path in your code: start at the project root.</p>
+<p>For <code>toolero</code> functions, the rule is already applied for you. <code>save_output()</code>, <code>write_clean_csv()</code>, <code>read_clean_csv()</code>, and the other functions that take a path read a relative path such as <code>&quot;output/figures/bill.png&quot;</code> from the project root, whichever folder the code happens to run from. That is why you did not have to write <code>here::here()</code> anywhere in <code>toolero</code>’s own calls today. A function from outside <code>toolero</code>, <code>ggsave()</code> for instance, does not know where the project root is, so you hand it a path that already starts there. You can do that with <code>here::here()</code>, which finds the same <code>.here</code> file, or you can let <code>save_output()</code> call the function for you, as segment 15 shows.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: a chunk in reports/morphometrics-analysis.qmd</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;output&quot;</span>, <span class="st">&quot;figures&quot;</span>, <span class="st">&quot;bill-morphometrics.png&quot;</span>), bill_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On a cluster, the job’s scratch directory takes the place of the project root, and the scratch directory is also where the results need to land anyway. <code>toolero</code> looks for that directory itself, and <code>here::here()</code> falls back to the job’s working directory, which is the same place. The one exception to the rule is the paths in the document’s own YAML header, such as a stylesheet: Quarto resolves those from the document itself, so they stay relative to <code>reports/</code>.</p>
+<p>This is the other half of the loop the purl hook opened. The hook kept the document and its script from drifting apart in <em>content</em>; <code>resolve_input_path()</code> keeps them from needing to drift apart in <em>behavior</em> either, across however many contexts they end up running in.</p>
+</section>
+</section>
+<section id="part-three-from-one-figure-to-a-whole-analysis" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part Three: From One Figure to a Whole Analysis</h1>
+<section id="leaving-a-record-and-meeting-the-minimal-project" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="leaving-a-record-and-meeting-the-minimal-project"><span class="header-section-number">3.1</span> Leaving a record, and meeting the minimal project</h2>
+<p>Your document draws one figure. That was the right size for Maris’s first favor, but it is not the size of most real analyses. A typical analysis, in almost any discipline, does about the same handful of things: it loads some data and checks what came through, makes a figure or two, summarizes something, fits a model, and writes the results somewhere a collaborator or a manuscript can find them. The figure from Task 1 is one of those jobs. For authenticity’s sake, we’ll work with a more comprehensive document, one that better reflects the realities of research.</p>
+<p>The minimal project is the smallest project I could build that does all of them, and its document, <code>reports/morphometrics-analysis.qmd</code>, is the expanded version of yours. The document picks up the Sphen Lab story where we left it: after the first figure, the obvious next asks are a summary of flipper length by species and a model relating flipper length to body mass, and Maris will almost certainly want every result saved. The document runs in four stages: load the observations and check what came through, draw the bill figure (yours, again), summarize flipper length by species, and fit the small model. It closes with the record of what it wrote and a short table of where it ran. It is deliberately modest, so that it can stand in for whatever your own analysis does. The data would differ; the kinds of work would not.</p>
+<p>The document is also the one we carry through the next two sessions. In the next session, the document goes into a container, and in the session after that, the document goes to a cluster, and it was written to survive both trips: every path in it starts at the project root, it finds its input with <code>resolve_input_path()</code>, it writes everything under <code>output/</code>, and it ends by recording what it wrote. Let’s stop on that last habit.</p>
+<p>There is one question left from the 2 a.m. scenario, and it is the one people usually ask too late. When the document ran with nobody watching, what did it actually produce? Did every file get written, or did the third figure fail halfway through? A folder of outputs cannot tell you which of its files are from tonight’s run and which are left over from last week’s.</p>
+<p><code>save_output()</code> answers that by wrapping whatever function writes the file. It calls the writer for you, and on the way it appends a line to <code>output/accumulator.csv</code>: the file, the kind of object, the function that wrote it, whether the write succeeded (and the error, if it did not), and an optional note. At the end of the document, <code>generate_manifest()</code> collapses those lines into the <em>output record</em>, <code>output/project-manifest.json</code>, one entry per file, along with the git commit the document was run from.</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Show me the call">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Show me the call
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: a chunk in reports/morphometrics-analysis.qmd</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave() takes the file name first and the plot second, the reverse of</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the order save_output() passes them in, so it needs a small wrapper.</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>save_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(object, file_path, ...) {</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggsave</span>(<span class="at">filename =</span> file_path, <span class="at">plot =</span> object, ...)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># save_output() reads a relative path from the project root, so no</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># here::here() is needed, and it hands save_plot() the resolved path.</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">save_output</span>(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  bill_plot,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;output/figures/bill-morphometrics.png&quot;</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f     =</span> save_plot,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">width  =</span> <span class="dv">7</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">dpi    =</span> <span class="dv">300</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">note   =</span> <span class="st">&quot;The appendix figure&quot;</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And as the document’s last chunk, which is also Source:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: the last chunk of reports/morphometrics-analysis.qmd</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_manifest</span>(<span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>overwrite = TRUE</code> because every render writes a fresh record. Then, to look at the record, run this from the Console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_output_records</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The minimal project also calls <code>read_output_records()</code> in a chunk of its own, as Source, so the same table appears in the rendered report.</p>
+</div>
+</div>
+</div>
+<p>Let’s run the script the way a pipeline would. With <code>output/</code> emptied, one call from the project root runs the whole analysis, with nobody at the Render button. The call goes in the Terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal, from the project root</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/morphometrics-analysis.R <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  data-raw/palmer-morphometrics-2024.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When the script finishes, <code>output/</code> holds every figure, table, and model the document writes, and the record says which of those writes succeeded.</p>
 <p><code>read_output_records()</code> reads the record back as a table, one row per file: <code>file_path</code>, <code>function_used</code>, <code>status</code>, <code>note</code>, and the facts about the run as a whole, <code>commit</code> among them. A table is something you can filter (which writes failed?) or put straight into the report, which is what the expanded <code>morphometrics-analysis.qmd</code> does in its last section, in place of a list of files someone would have to keep by hand.</p>
-<p>You will not build this document today, and you will not have to. I will give you the whole project it lives in, <code>minimal-project-day2.zip</code>, as the starting point for the next session. Yours is the smaller version. It draws one figure, and this one draws that figure too, then summarizes, models, and saves. It is today’s lesson with a few more jobs and nothing else new. If you want a record in your own document, adding <code>save_output()</code> calls and a closing <code>generate_manifest()</code> is the same change we just looked at, and nothing in the next session depends on it.</p>
+<p>You will not build this document today, and you will not have to. I will give you the whole project it lives in, <code>minimal-project-day2.zip</code>, and that project replaces the one you built in Task 3 as the starting point for the next session. Yours is the smaller version. Yours draws one figure, and the minimal project draws that figure too, then summarizes, models, and saves. It is today’s lesson with a few more jobs and nothing else new. If you want a record in your own document, adding <code>save_output()</code> calls and a closing <code>generate_manifest()</code> is the same change we just looked at, and nothing in the next session depends on it.</p>
+<p>Your practice project is not lost. It stays on your computer, and everything in it still works. Before the next session, make the switch in three steps, and remember that one project has to be closed before another is opened:</p>
+<ol type="1">
+<li>Close the project you have open (File &gt; Close Project in RStudio).</li>
+<li>Unzip <code>minimal-project-day2.zip</code> inside <code>n2c-workshop</code>, beside your practice projects and not inside either of them.</li>
+<li>Open the unzipped project (File &gt; Open Project in RStudio, or File &gt; Open Folder in Positron).</li>
+</ol>
 </section>
 <section id="retrofitting-what-the-project-already-knows" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="retrofitting-what-the-project-already-knows"><span class="header-section-number">3.2</span> Retrofitting: what the project already knows</h2>
 <p>I hope that I have managed to convince you by now that <code>toolero</code>’s <code>init_project()</code> and <code>create_qmd()</code> reduce much of the friction we encounter in our day-to-day work, as well as make following best practices easier to adopt. But what about all the projects you work on that already exist? Sometimes you inherit one, or you’re six months into something that predates this session entirely. Two functions exist specifically for that situation, and you have already met one of them.</p>
-<p>Recall the purl lab: <code>check_project()</code> printed a whole report, and we read a single row of it. The rest of that report is the function’s main job. <code>check_project()</code> audits an existing directory, whether one you built by hand or one a labmate handed you, against the same checklist <code>init_project()</code> satisfies automatically: expected folders, an <code>.Rproj</code> file, <code>renv.lock</code>, git, a README, a <code>.gitignore</code>, and the absence of stray session files like <code>.RData</code> or <code>.Rhistory</code>. When the project has a <code>_toolero.yml</code>, <code>check_project()</code> reads the expected folders from it rather than assuming the defaults. The stale-script row from the lab is one more item on the same list. Run it once more on the project you built today:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_project</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If you re-rendered your document in the last segment, the row for it should now pass, since the script caught up the moment you rendered. Read the rest of the report: it is the checklist <code>init_project()</code> satisfied for you without being asked. Pointed at a project that did not start this way, the same report becomes a to-do list.</p>
-<p><code>qmd_to_r()</code> is the retrofit counterpart to the purl hook from Part One. It extracts the R code from <em>any</em> <code>.qmd</code>, including one that was never created with <code>create_qmd()</code> in the first place, into a standalone <code>.R</code> script.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qmd_to_r</span>(<span class="at">input =</span> <span class="st">&quot;inherited-analysis.qmd&quot;</span>, <span class="at">output =</span> <span class="st">&quot;R/inherited-analysis.R&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Recall the purl lab: <code>check_project()</code> printed a whole report, and we read a single row of it. The rest of that report is the function’s main job. <code>check_project()</code> audits an existing directory, whether one you built by hand or one a labmate handed you, against the same checklist <code>init_project()</code> satisfies automatically: expected folders, an <code>.Rproj</code> file, <code>renv.lock</code>, git, a README, a <code>.gitignore</code>, and the absence of stray session files like <code>.RData</code> or <code>.Rhistory</code>. When the project has a <code>_toolero.yml</code>, <code>check_project()</code> reads the expected folders from it rather than assuming the defaults. The stale-script row from the lab is one more item on the same list. Run it once more on the project you built today, from the Console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_project</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you re-rendered your document in the last segment, the row for your document should now pass, since the script caught up the moment you rendered. Read the rest of the report: it is the checklist <code>init_project()</code> satisfied for you without being asked. Pointed at a project that did not start this way, the same report becomes a to-do list.</p>
+<p><code>qmd_to_r()</code> is the retrofit counterpart to the purl hook from Part One. The function extracts the R code from <em>any</em> <code>.qmd</code>, including one that was never created with <code>create_qmd()</code> in the first place, into a standalone <code>.R</code> script. Like <code>create_qmd()</code>, you call it from the Console.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qmd_to_r</span>(<span class="at">input =</span> <span class="st">&quot;inherited-analysis.qmd&quot;</span>, <span class="at">output =</span> <span class="st">&quot;R/inherited-analysis.R&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A <code>documentation</code> argument controls how much commentary survives the extraction: chunk labels only (the default), full roxygen-style blocks, or bare code with nothing else. That choice matters when the extracted script is headed somewhere with its own conventions, such as a shared scripts folder.</p>
 <p>A few smaller generators round out the record-keeping side of a project, each one a single call that writes a file you’d otherwise start from a blank page: <code>generate_citation()</code> writes a <code>CITATION.cff</code>, reusing the profile from Part One; <code>generate_license()</code> writes a <code>LICENSE</code>; and <code>generate_data_doc()</code> writes a short documentation stub for one dataset.</p>
-<p>Finally, a pointer rather than a demo: when an analysis needs to run separately across subsets of the data (for instance, one model per species rather than one model against everything at once), <code>write_by_group()</code> and <code>run_by_group()</code> are the pair that handles it, splitting the data once and applying a function to each piece. Out of scope for today, but it will be there the day this project needs it, and it’s the starting point of the <code>submitr</code> session.</p>
+<p>Finally, a pointer rather than a demo: when an analysis needs to run separately across subsets of the data (for instance, one model per species rather than one model against everything at once), <code>write_by_group()</code> and <code>run_by_group()</code> are the pair that handles that case, splitting the data once and applying a function to each piece. Unlike most of today’s functions, this pair belongs in Source, since a pipeline runs it every time. It is out of scope for today, but the pair will be there the day this project needs it, and it is the starting point of the <code>submitr</code> session.</p>
 </section>
 <section id="wrap-up" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="wrap-up"><span class="header-section-number">3.3</span> Wrap-up</h2>
-<p>Two kinds of friction turned up today. The first was loud: setting up a folder, <code>renv</code>, and git by hand, under the vague suspicion that the result might not hold up. <code>init_project()</code> and <code>create_qmd()</code> removed it without asking you to predict in advance which projects deserve the effort. The second was quieter, and only appeared once the same analysis had to run in more than one place. <code>resolve_input_path()</code> and <code>here::here()</code> removed the disagreement about where “here” is, the purl hook removed the need to maintain a document and a script by hand, and <code>save_output()</code> made sure the analysis can say afterwards what it did. In every case the fix was the same in spirit: a decision you’d otherwise have to get right identically every time, replaced by one you make once.</p>
+<p>Two kinds of friction turned up today. The first was loud: setting up a folder, <code>renv</code>, and git by hand, under the vague suspicion that the result might not hold up. <code>init_project()</code> and <code>create_qmd()</code> removed that friction without asking you to predict in advance which projects deserve the effort. The second was quieter, and only appeared once the same analysis had to run in more than one place. <code>resolve_input_path()</code> and the project-root rule for paths removed the disagreement about where “here” is, the purl hook removed the need to maintain a document and a script by hand, and <code>save_output()</code> made sure the analysis can say afterwards what it did. In every case the fix was the same in spirit: a decision you’d otherwise have to get right identically every time, replaced by one you make once.</p>
+<p>One more thing about where code goes, because it is easy to lose track of. <code>init_project()</code>, <code>create_qmd()</code>, <code>generate_profile()</code>, <code>check_project()</code>, and the generators live at the Console, because each sets up a project or looks at one from the outside. <code>resolve_input_path()</code>, <code>save_output()</code>, and <code>generate_manifest()</code> live in Source, because each is a step in the analysis and runs whenever the analysis does. <code>Rscript</code> lives in the Terminal. If you are ever unsure where a line goes, ask whether it is something you do once to the project (Console) or something the analysis does every time (Source).</p>
 <p>There are two smaller chores that <code>toolero</code> also takes off your hands, and I do not want them to get lost among the larger ones. Neither is a friction in the sense of the two above, since nothing breaks when you leave them alone. They are the kind of thing you do by hand a hundred times and never quite stop noticing.</p>
-<p>The first is retyping yourself. Every document you have started has opened with your name, your affiliation, and your email, usually pasted from the last document and often a little different from it. <code>header_defaults</code> ends that. You write a profile once with <code>generate_profile()</code>, and every document <code>create_qmd()</code> makes starts with your author block already in place, along with the table of contents and rendering preferences you would have set anyway. Look again at the header of the expanded <code>morphometrics-analysis.qmd</code>. The title, the description, and the <code>params:</code> block belong to this study. The author block, the table of contents, <code>embed-resources: true</code>, and the quiet-rendering options do not, and those are the lines a profile writes for you.</p>
-<p>The second is making the document look the way you want it to. Most of us either accept the default or spend an afternoon fighting a stylesheet and then never touch it again. <code>toolero</code> treats the look the way it treats your name, as a decision to make once. <code>init_project(branding = &quot;uw-madison&quot;)</code>, or <code>branding = TRUE</code> for generic placeholders, puts an <code>assets/</code> folder in the project, holding a stylesheet, a banner, a footer, and a logo, and <code>create_qmd(use_style = TRUE)</code> wires whichever of those exist into the document’s header. To change the look, you edit <code>styles.css</code> or <code>header.html</code> in that one folder, and every document wired to it follows. The expanded <code>morphometrics-analysis.qmd</code> you saw in the demo is styled this way. The document you built today is plain, because <code>init_project()</code> creates no <code>assets/</code> folder unless you ask for one. I think the two reports side by side make the point better than I can: the same kind of analysis, with and without a small folder. We did not practice this today, and nothing in the next session depends on it. I am telling you now so that you know it is there when you want it.</p>
+<p>The first is retyping yourself. Every document you have started has opened with your name, your affiliation, and your email, usually pasted from the last document and often a little different from the original. <code>header_defaults</code> ends that. You write a profile once with <code>generate_profile()</code>, and every document <code>create_qmd()</code> makes starts with your author block already in place, along with the table of contents and rendering preferences you would have set anyway. Look again at the header of the expanded <code>morphometrics-analysis.qmd</code>. The title, the description, and the <code>params:</code> block belong to this study. The author block, the table of contents, <code>embed-resources: true</code>, and the quiet-rendering options do not, and those are the lines a profile writes for you.</p>
+<p>The second is making the document look the way you want it to. Most of us either accept the default or spend an afternoon fighting a stylesheet and then never touch it again. <code>toolero</code> treats the look the way it treats your name, as a decision to make once. <code>init_project(branding = &quot;uw-madison&quot;)</code>, or <code>branding = TRUE</code> for generic placeholders, puts an <code>assets/</code> folder in the project, holding a stylesheet, a banner, a footer, and a logo, and <code>create_qmd(use_style = TRUE)</code> wires whichever of those exist into the document’s header. To change the look, you edit <code>styles.css</code> or <code>header.html</code> in that one folder, and every document wired to that folder follows. The expanded <code>morphometrics-analysis.qmd</code> you saw in the demo is styled this way. The document you built today is plain, because <code>init_project()</code> creates no <code>assets/</code> folder unless you ask for one. I think the two reports side by side make the point better than I can: the same kind of analysis, with and without a small folder. We did not practice this today, and nothing in the next session depends on this feature. I am telling you now so that you know it is there when you want it.</p>
 <p>If you do one thing after today, I would make it this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_profile</span>(<span class="st">&quot;profile.yml&quot;</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fill in your name, affiliation, ORCID, and email, then, in a new project:</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">init_project</span>(<span class="at">path =</span> <span class="st">&quot;~/Documents/my-next-project&quot;</span>, <span class="at">branding =</span> <span class="st">&quot;uw-madison&quot;</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># open it, and from inside it:</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">create_qmd</span>(</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/my-next-analysis.qmd&quot;</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">header_defaults  =</span> <span class="st">&quot;~/profile.yml&quot;</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_style        =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Console</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_profile</span>(<span class="st">&quot;profile.yml&quot;</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fill in profile.yml (a file you edit), close any project you have open,</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and then, to start a new project:</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">init_project</span>(<span class="at">path =</span> <span class="st">&quot;~/my-next-project&quot;</span>, <span class="at">branding =</span> <span class="st">&quot;uw-madison&quot;</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># open the new project, and from its Console:</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">create_qmd</span>(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename         =</span> <span class="st">&quot;reports/my-next-analysis.qmd&quot;</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">header_defaults  =</span> <span class="st">&quot;~/profile.yml&quot;</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">use_style        =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_examples =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each of those calls goes at the Console, and each project gets a folder of its own: close the project you have open before you create or open another, and never put one project inside another.</p>
 <p>Keep the profile in your home directory, or keep two, a personal one and a work one under different names, and every new document starts with your author block and formatting preferences already in place. The same profile feeds <code>generate_citation()</code>, so one file you write once serves two jobs.</p>
 <p>If I had to compress the day into a sentence, it would be the one from the middle of the session: work in a document, run a script, and never maintain both by hand.</p>
-<p>That sentence is also the bridge to the next session. Everything we built today makes the analysis easy to run in the places you control, and the minimal project, with the expanded <code>morphometrics-analysis.qmd</code> you saw a few minutes ago, is what we carry forward. It has a problem yours does not have yet: it uses more packages than you did (besides what you used today, it loads <code>dplyr</code>, <code>gt</code>, and <code>broom</code>), and <code>renv.lock</code> records all of them while recording nothing about what those packages need from the machine underneath. The <code>containr</code> session takes that lockfile and builds an environment around it, so the same script runs wherever it lands, and the session after that sends it to a cluster. The thread running through all three is the one you just pulled on: the decision made once, made visible, recorded somewhere durable, and reused.</p>
+<p>That sentence is also the bridge to the next session. Everything we built today makes the analysis easy to run in the places you control, and the minimal project, with the expanded <code>morphometrics-analysis.qmd</code> you saw a few minutes ago, is what we carry forward. The minimal project replaces the practice project you built in Task 3, so before the next session, make the switch with the three steps from the demo: close your project, unzip the minimal project in <code>n2c-workshop</code> beside it, and open the new one. The minimal project has a problem yours does not have yet: it uses more packages than you did (besides what you used today, it loads <code>dplyr</code>, <code>gt</code>, and <code>broom</code>), and <code>renv.lock</code> records all of them while recording nothing about what those packages need from the machine underneath. The <code>containr</code> session takes that lockfile and builds an environment around it, so the same script runs wherever it lands, and the session after that sends the project to a cluster. The thread running through all three is the one you just pulled on: the decision made once, made visible, recorded somewhere durable, and reused.</p>
 <p>The full function reference, including a few tools not covered today (<code>arborize()</code>, <code>generate_kb_xml()</code>, <code>read_clean_csv()</code>, and <code>write_clean_csv()</code>), is documented at <a href="https://github.com/erwinlares/toolero">github.com/erwinlares/toolero</a>.</p>
 </section>
 </section>
