@@ -1,0 +1,180 @@
+/* UW-Madison Brand Colors
+Primary:   Badger Red  #C5050C
+Dark Red:              #9B0000
+Light Gray:            #E1E5E7
+Black:                 #121212
+*/
+
+/* RCI Header */
+.rci-header {
+  width: 100%;
+  margin-bottom: 2rem;
+  background-color: #E1E5E7;
+  border-bottom: 4px solid #C5050C;
+  border-top: 4px solid #C5050C;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.rci-header img {
+  height: 52px;
+  display: block;
+}
+
+.rci-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rci-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #C5050C;
+  letter-spacing: 0.02em;
+}
+
+.rci-subtitle {
+  font-size: 0.8rem;
+  color: #444444;
+  letter-spacing: 0.03em;
+}
+
+/* Top border accent — Badger Red */
+body {
+  border-top: 5px solid #C5050C;
+}
+
+/* Headings in Badger Red */
+h1,
+h2,
+h3,
+h4 {
+  color: #C5050C;
+}
+
+/* Subtle red left border on h2 sections */
+h2 {
+  border-left: 4px solid #C5050C;
+  padding-left: 0.6rem;
+  margin-top: 2rem;
+}
+
+/* TOC styling */
+#TOC {
+  border-left: 3px solid #C5050C;
+  padding-left: 1rem;
+  background-color: #f9f9f9;
+}
+
+#TOC a {
+  color: #121212;
+}
+
+#TOC a:hover {
+  color: #C5050C;
+}
+
+/* Code blocks */
+pre {
+  background-color: #f4f4f4;
+  border-left: 3px solid #C5050C;
+  border-radius: 4px;
+}
+
+/* Inline code */
+code {
+  color: #9B0000;
+  background-color: #f4f4f4;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+pre code {
+  color: inherit;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Table header
+!important on both properties, not just color: table-generating
+packages (gt, kableExtra, DT, etc.) often inject their own scoped,
+higher-specificity CSS for header cells. A plain `thead` selector loses
+that specificity fight for background-color even though the
+`!important` on color still wins — which is exactly how you end up
+with white text on whatever background the package chose instead of
+red. Forcing both together keeps them from coming uncoupled.
+*/
+thead {
+  background-color: #C5050C !important;
+  color: white !important;
+}
+
+thead th {
+  background-color: #C5050C !important;
+  color: white !important;
+}
+
+/* Table rows */
+tbody tr:nth-child(even) {
+  background-color: #E1E5E7;
+}
+
+/* Footer line */
+body::after {
+  content: "Research Cyberinfrastructure · Division of Information Technology · UW–Madison";
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  border-top: 2px solid #C5050C;
+  margin-top: 3rem;
+  padding-top: 0.75rem;
+}
+
+/* Links */
+a {
+  color: #9B0000;
+}
+
+a:hover {
+  color: #C5050C;
+}
+
+/* Quarto title block */
+#title-block-header {
+  position: relative;
+  padding-right: 16rem;
+  box-sizing: border-box;
+}
+
+/* Add the workshop logo */
+#title-block-header::after {
+  content: "";
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  right: 0;
+  top: 2.5rem;
+
+  background-image: url("notebook-cluster.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Responsive layout: remove the logo on narrow screens */
+@media (max-width: 768px) {
+  #title-block-header {
+    padding-right: 0;
+  }
+
+  #title-block-header::after {
+    display: none;
+  }
+}

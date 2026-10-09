@@ -1,0 +1,293 @@
+/*-- scss:defaults --*/
+
+// From the Notebook to the Cluster: revealjs theme
+// Palette: UW-Madison Badger red and grays (the lesson's styles.css),
+// plus the four RCI gear colors from the banner and the QR codes.
+
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:ital,wght@0,400;0,600;1,400&family=Red+Hat+Mono:wght@400;500&display=swap");
+
+$badger-red:  #C5050C;
+$dark-red:    #9B0000;
+$light-gray:  #E1E5E7;
+$mid-gray:    #6B6F72;
+$ink:         #282728;
+$cream:       #FDF8F6;
+
+$rci-blue:    #2B518C;
+$rci-purple:  #58276E;
+$rci-green:   #70AD47;
+$rci-orange:  #F7931E;
+
+$body-bg:                       #FFFFFF;
+$body-color:                    $ink;
+$link-color:                    $dark-red;
+$selection-bg:                  rgba($badger-red, 0.15);
+
+$font-family-sans-serif:        "Red Hat Text", "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace:         "Red Hat Mono", SFMono-Regular, Menlo, monospace;
+$presentation-font-size-root:   34px;
+$presentation-line-height:      1.35;
+
+$presentation-heading-font:     "Red Hat Display", "Helvetica Neue", Arial, sans-serif;
+$presentation-heading-color:    $badger-red;
+$presentation-heading-font-weight: 700;
+$presentation-heading-text-transform: none;
+$presentation-h1-font-size:     2.2em;
+$presentation-h2-font-size:     1.45em;
+$presentation-h3-font-size:     1.1em;
+
+$code-color:                    $dark-red;
+$code-block-bg:                 #F6F7F8;
+$code-block-border-color:       $light-gray;
+$code-block-font-size:          0.62em;
+
+/*-- scss:rules --*/
+
+// ---- slide titles ----------------------------------------------------------
+
+.reveal .slides section h2 {
+  border-bottom: 3px solid $badger-red;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .slide-number {
+  color: $mid-gray;
+  font-family: $font-family-sans-serif;
+}
+
+.reveal .footer {
+  color: $mid-gray;
+  font-size: 0.45em;
+}
+
+.reveal .slide-logo {
+  max-height: 1.6em !important;
+}
+
+// ---- title slide -----------------------------------------------------------
+
+#title-slide {
+  text-align: left;
+
+  .title {
+    color: $badger-red;
+    font-weight: 900;
+    font-size: 1.9em;
+    max-width: 62%;
+    line-height: 1.1;
+  }
+  .subtitle {
+    color: $ink;
+    font-family: $presentation-heading-font;
+    font-weight: 500;
+    max-width: 62%;
+  }
+  .quarto-title-authors {
+    justify-content: flex-start;
+    max-width: 60%;
+  }
+  .quarto-title-author-name,
+  .date {
+    color: $mid-gray;
+    font-size: 0.7em;
+    text-align: left;
+  }
+}
+
+// ---- part (section) slides -------------------------------------------------
+
+.reveal .slides section.part-slide {
+  h1, h2 {
+    color: #FFFFFF;
+    border-bottom: none;
+    font-weight: 900;
+  }
+  p {
+    color: rgba(#FFFFFF, 0.9);
+    font-size: 0.85em;
+  }
+  a {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
+  code {
+    color: #FFFFFF;
+    background: rgba(#FFFFFF, 0.15);
+  }
+}
+
+// On dark slides, turn the logo, footer, and slide number white.
+.reveal.has-dark-background {
+  .slide-logo { filter: brightness(0) invert(1); }
+  .footer, .slide-number { color: rgba(#FFFFFF, 0.75); }
+}
+
+.reveal .slides section.break-slide {
+  h1, h2 { color: $ink; border-bottom: none; font-weight: 900; }
+}
+
+// ---- text helpers ----------------------------------------------------------
+
+.lede {
+  font-size: 1.25em;
+  line-height: 1.3;
+  font-family: $presentation-heading-font;
+  font-weight: 500;
+}
+
+.muted { color: $mid-gray; }
+.small { font-size: 0.7em; }
+.smaller { font-size: 0.58em; }
+.red { color: $badger-red; }
+
+// A quotation set in the story's voice (Maris, the lab).
+.story {
+  border-left: 6px solid $rci-purple;
+  background: $cream;
+  padding: 0.6em 0.9em;
+  font-size: 0.9em;
+  font-style: italic;
+  border-radius: 0 6px 6px 0;
+}
+
+// The one sentence the session is built around, and other big claims.
+.claim {
+  font-family: $presentation-heading-font;
+  font-weight: 700;
+  font-size: 1.35em;
+  line-height: 1.25;
+  color: $ink;
+  border-left: 8px solid $badger-red;
+  padding-left: 0.6em;
+  margin: 0.8em 0;
+}
+
+// ---- task boxes ------------------------------------------------------------
+
+.task {
+  border: 2px solid $badger-red;
+  border-radius: 8px;
+  padding: 0.5em 0.9em 0.6em;
+  background: #FFFFFF;
+  box-shadow: 0 2px 0 rgba($badger-red, 0.25);
+  font-size: 0.85em;
+
+  &::before {
+    content: "Your turn";
+    font-family: $presentation-heading-font;
+    font-weight: 700;
+    font-size: 0.7em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: $badger-red;
+    padding: 0.1em 0.6em;
+    border-radius: 4px;
+    margin-bottom: 0.4em;
+    width: fit-content;
+    display: block;
+  }
+}
+
+.lab::before { content: "Lab"; }
+
+// Time badge, e.g. [8 minutes]{.time}
+.time {
+  display: inline-block;
+  font-family: $presentation-heading-font;
+  font-weight: 700;
+  font-size: 0.6em;
+  color: $ink;
+  background: $light-gray;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+// ---- cards (three parts, three days, three reasons) ------------------------
+
+.cards {
+  display: flex;
+  gap: 0.6em;
+  margin-top: 0.4em;
+}
+
+.card {
+  flex: 1;
+  border-radius: 8px;
+  padding: 0.5em 0.7em;
+  background: #FFFFFF;
+  border: 1px solid $light-gray;
+  border-top: 8px solid $badger-red;
+  font-size: 0.74em;
+
+  // Card titles are spans, not ### headings: a heading inside a slide
+  // becomes a nested <section>, which revealjs then counts as a slide.
+  .card-title {
+    display: block;
+    font-family: $presentation-heading-font;
+    font-weight: 700;
+    font-size: 1.3em;
+    color: $ink;
+    margin-bottom: 0.2em;
+  }
+  &.blue   { border-top-color: $rci-blue; }
+  &.purple { border-top-color: $rci-purple; }
+  &.green  { border-top-color: $rci-green; }
+  &.orange { border-top-color: $rci-orange; }
+  &.gray   { border-top-color: $mid-gray; }
+}
+
+// ---- polls -----------------------------------------------------------------
+
+.poll-link {
+  font-family: $presentation-heading-font;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.qr img {
+  max-height: 520px;
+  border-radius: 12px;
+}
+
+// ---- tables ----------------------------------------------------------------
+
+.reveal table {
+  font-size: 0.66em;
+  width: 100%;
+}
+.reveal table thead th {
+  background: $badger-red;
+  color: #FFFFFF;
+  border-bottom: none;
+}
+.reveal table tbody tr:nth-child(even) {
+  background: $light-gray;
+}
+
+// ---- code ------------------------------------------------------------------
+
+.reveal pre code {
+  max-height: 520px;
+}
+// Wrap long lines instead of clipping them (narrow columns, long paths).
+.reveal div.sourceCode pre code,
+.reveal pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+}
+.reveal div.sourceCode {
+  border-left: 4px solid $badger-red;
+}
+
+// ---- diagrams --------------------------------------------------------------
+
+// Mermaid draws small; let each diagram take the slide's width.
+.reveal .cell-output-display svg {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 340px;
+}

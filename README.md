@@ -35,12 +35,12 @@ them (the CHTC account) takes a few business days, so please start it early.
 2. Install [Quarto](https://quarto.org/docs/get-started/) and
    [Git](https://git-scm.com/downloads).
 3. Start a fresh R session (not inside a project, and with none of these
-   packages loaded) and install `readr` and `ggplot2` (Day 1 draws a figure
-   from a CSV file) and the three workshop packages from GitHub. We use the
+   packages loaded) and install `readr`, `ggplot2`, and `ragg` (Day 1 draws a
+   figure from a CSV file) and the three workshop packages from GitHub. We use the
    development versions of all three:
 
    ```r
-   install.packages(c("pak", "readr", "ggplot2"))
+   install.packages(c("pak", "readr", "ggplot2", "ragg"))
    pak::pak("erwinlares/toolero")
    pak::pak("erwinlares/containr")
    pak::pak("erwinlares/submitr")

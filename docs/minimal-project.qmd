@@ -1,0 +1,571 @@
+---
+title: "Bill and flipper morphometrics in three *Pygoscelis* species"
+subtitle: "Working figures for the Sphen Lab peninsula morphology study"
+author:
+- name: A. Rueda
+  affiliation: Postdoctoral Researcher, Sphen Lab, Department of Integrative
+    Biology, UW-Madison
+  email: arueda@wisc.edu
+date: 2026-07-21
+date-modified: last-modified
+description: |
+  Working analysis of bill and flipper morphometrics across Adélie, Chinstrap,
+  and Gentoo penguins sampled at Palmer Station, prepared for the appendix of
+  the Sphen Lab renewal proposal.
+categories:
+- morphometrics
+- Pygoscelis
+- Palmer LTER
+purl: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: Contents
+    number-sections: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Code"
+    css: ../assets/styles.css
+    include-before-body: ../assets/header.html
+    include-after-body: ../assets/footer.html
+    resource-path:
+    - "."
+    - ".."
+execute:
+  echo: true
+  warning: false
+  message: false
+params:
+  input_file: data-raw/palmer-morphometrics-2024.csv
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(toolero)
+library(gt)
+library(broom)
+```
+
+## Overview
+
+I joined the Sphen Lab a few weeks ago, and this is my first real task: Maris
+asked for one figure for the renewal appendix: bill length against bill
+depth, colored by species. That is the first plot below, and it took about
+five minutes.
+
+The rest of this document exists because, from what the rest of the lab tells
+me, the last three "quick figures" all came back a month later needing a
+rerun against updated data. Writing it this way costs perhaps an extra twenty
+minutes now; regenerating it in October costs one command. The measurements
+are bill length, bill depth, flipper length, and body mass, which the lab
+has been collecting at Palmer Station across recent field seasons for the
+three *Pygoscelis* species breeding on and around Anvers Island: Adélie
+(*P. adeliae*), Chinstrap (*P. antarcticus*), and Gentoo (*P. papua*).
+
+The document proceeds in four stages:
+
+1. Load the observations and check what came through
+2. Produce the bill morphometrics figure for the appendix
+3. Summarize flipper length by species
+4. Fit a small model relating flipper length to body mass
+
+Stages 3 and 4 were not requested. They are here because the same data was
+already loaded and the comparison is one Maris will almost certainly ask for
+next.
+
+Every figure, table, and fitted model is written to `output/` as a file, not
+only displayed inline. Figures go under `output/figures/` and tables under
+`output/tables/`, following the project's own folder layout. The appendix
+needs image files it can drop into the proposal document, and a job running
+on a cluster has nowhere to display anything, so in both cases the artifact
+on disk is the actual deliverable. Each file is saved through
+`toolero::save_output()`, which also notes what was saved, how, and whether
+it worked, so the document finishes with a record of its own outputs rather
+than a list I maintain by hand.
+
+## Input and output resolution
+
+This section is infrastructure rather than analysis. It exists so the document
+runs unmodified in three places: interactively while I am working on it,
+rendered through Quarto with a path supplied via `params`, and executed as an
+`Rscript` on a CHTC node with the path passed as a command-line argument.
+`resolve_input_path()` works out which of the three applies and returns the
+path that context should use. Only the interactive path is spelled out below.
+Under Quarto it falls back to `params$input_file`. Both are written from the
+project root (`data-raw/...`), and `resolve_input_path()` reads them from
+there, so the same spelling works whether Quarto runs this document from
+`reports/` or I run its chunks one at a time. Under `Rscript` it falls back
+to the first command-line argument, taken as given. Either way it checks
+that the file exists before anything tries to read it.
+
+The one thing that has to *behave* differently by context, rather than just
+find a file, is on-screen output: there is nothing to display under
+`Rscript`, so tables and plots are only printed when this is not a batch run.
+`detect_execution_context()` answers that question on its own.
+
+Output paths follow the same rule: they start at the project root, as in
+`"output/figures/bill-morphometrics.png"`, and `save_output()` reads them
+from there. A render from `reports/` therefore still writes to the
+project's `output/` rather than to a stray `reports/output/`, and I do not
+need `here::here()` anywhere in the document. On a CHTC node there is no
+project root to find, so `toolero` uses the job's scratch directory in its
+place, which is exactly where HTCondor looks for files to send back on
+completion. One spelling, correct in all three contexts, without
+special-casing.
+
+`save_plot()` below exists only because `ggsave()` takes the file name first
+and the plot second, the reverse of the order `save_output()` passes them
+in. Giving the wrapper a name, rather than writing it inline, also means the
+record says `save_plot` rather than an anonymous function.
+
+```{r}
+#| label: input-resolution
+
+input_file <- resolve_input_path(
+  interactive = "data-raw/palmer-morphometrics-2024.csv"
+)
+
+context <- detect_execution_context()
+should_render_outputs <- !identical(context, "rscript")
+
+# save_output() creates any missing folder, so none are created here.
+save_plot <- function(object, file_path, ...) {
+  ggplot2::ggsave(filename = file_path, plot = object, ...)
+}
+```
+
+## Load data
+
+The observations are read from the resolved path and stored as `penguins`,
+with the same `read_csv()` call the first figure used. The message that
+follows reports the row and column counts and how many columns contain
+missing values, and I read it rather than skipping it. Field measurements
+arrive with gaps, and it matters whether a missing bill depth is one bird
+or forty.
+
+```{r}
+#| label: load-data
+#| message: true
+
+penguins <- read_csv(input_file, show_col_types = FALSE)
+
+n_missing_cols <- sum(colSums(is.na(penguins)) > 0)
+message(
+  "Read ", nrow(penguins), " rows and ", ncol(penguins), " columns; ",
+  n_missing_cols, " columns contain missing values."
+)
+```
+
+## Bill morphometrics
+
+This is the figure for the appendix.
+
+@fig-bill-morphometrics plots bill length against bill depth, with each species
+shown in its own color. Bill dimensions separate the three species cleanly.
+Gentoos have long, shallow bills; Adélies short, deep ones; Chinstraps sit
+between the two but closer to Adélie on depth.
+
+Saved at 300 dpi, which is what the proposal template wants for print.
+
+```{r}
+#| label: fig-bill-morphometrics
+#| fig-cap: "Bill length against bill depth, by species"
+
+bill_plot <- penguins |>
+  ggplot(aes(
+    x = bill_length_mm,
+    y = bill_depth_mm,
+    color = species,
+    shape = species
+  )) +
+  geom_point(alpha = 0.7, size = 2) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title    = "Bill morphometrics by species",
+    subtitle = "Palmer Station, recent field seasons",
+    x        = "Bill length (mm)",
+    y        = "Bill depth (mm)",
+    color    = NULL,
+    shape    = NULL,
+    caption  = "Data: Palmer Station LTER (Gorman, Williams & Fraser 2014)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+
+save_output(
+  bill_plot,
+  "output/figures/bill-morphometrics.png",
+  .f     = save_plot,
+  width  = 7,
+  height = 5,
+  dpi    = 300,
+  note   = "The appendix figure"
+)
+
+if (should_render_outputs) bill_plot
+```
+
+One thing needs raising before this goes in the appendix. Pooled across all
+three species, bill length and bill depth are *negatively* associated, so
+longer bills look shallower. Within each species taken separately, the
+association is *positive*: longer-billed birds also have deeper bills, as
+one would expect.
+The pooled trend is an artifact of Gentoos being both long-billed and
+shallow-billed relative to the other two, not a biological relationship.
+
+This is a textbook case of Simpson's paradox, and it is exactly why the species
+coloring is doing real work here rather than decorating the plot. An uncolored
+version of this same figure would support the opposite conclusion. A sentence
+in the caption would spare a reviewer from reconstructing it.
+
+## Flipper length by species
+
+Not requested, but the data was loaded.
+
+The observations are grouped by species and four descriptive statistics
+calculated for flipper length: minimum, maximum, mean, and standard deviation.
+Missing flipper measurements are excluded from each calculation. The minimum
+and maximum give the observed range within each species; the mean estimates
+typical flipper length; the standard deviation describes spread around it.
+
+The summary is written out as CSV rather than only as a formatted table. The
+CSV is the reusable artifact, since it can be read back, joined against, or
+reformatted, where a rendered table is only a presentation of it.
+
+```{r}
+#| label: summary
+
+flipper_stats <- penguins |>
+  group_by(species) |>
+  summarize(
+    min_flipper_length  = min(flipper_length_mm, na.rm = TRUE),
+    max_flipper_length  = max(flipper_length_mm, na.rm = TRUE),
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    sd_flipper_length   = sd(flipper_length_mm, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+save_output(
+  flipper_stats,
+  "output/tables/flipper-stats.csv",
+  .f   = write_csv,
+  note = "Flipper summary statistics"
+)
+```
+
+@tbl-penguin-flipper-stats presents these in millimeters, rounded to whole
+units for display.
+
+```{r}
+#| label: tbl-penguin-flipper-stats
+#| tbl-cap: "Flipper statistics per species"
+
+flipper_stats_tbl <- flipper_stats |>
+  gt() |>
+  fmt_number(decimals = 0) |>
+  cols_label(
+    species              = "Species",
+    min_flipper_length   = "Minimum",
+    max_flipper_length   = "Maximum",
+    mean_flipper_length  = "Mean",
+    sd_flipper_length    = "SD"
+  ) |>
+  tab_header(
+    title = "Flipper length by species",
+    subtitle = "Summary statistics in millimeters"
+  )
+
+if (should_render_outputs) flipper_stats_tbl
+```
+
+@fig-flipper-length-dist shows the full distribution behind those numbers. The
+violin layer gives the shape and concentration of measurements, the boxplot
+summarizes median and interquartile range, and the jittered points show
+individual birds. Layering all three keeps the summary tied to the
+observations it came from, since a mean and standard deviation alone would
+hide the bimodality visible in the Adélie distribution.
+
+```{r}
+#| label: fig-flipper-length-dist
+#| fig-cap: "Flipper length distribution by species"
+
+flipper_plot <- penguins |>
+  ggplot(aes(
+    x = species,
+    y = flipper_length_mm,
+    color = species,
+    fill = species
+  )) +
+  geom_violin(alpha = 0.15, linewidth = 0) +
+  geom_boxplot(alpha = 0.4, width = 0.3, outlier.shape = NA) +
+  geom_jitter(width = 0.1, alpha = 0.5, size = 1.5) +
+  scale_color_brewer(palette = "Set2") +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title    = "Flipper length by species",
+    subtitle = "Distribution of flipper length in millimeters",
+    x        = NULL,
+    y        = "Flipper length (mm)",
+    caption  = "Data: Palmer Station LTER (Gorman, Williams & Fraser 2014)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+
+save_output(
+  flipper_plot,
+  "output/figures/flipper-length-dist.png",
+  .f     = save_plot,
+  width  = 7,
+  height = 5,
+  dpi    = 300,
+  note   = "Flipper length distributions by species"
+)
+
+if (should_render_outputs) flipper_plot
+```
+
+## Flipper length and body mass
+
+Penguins with longer flippers tend to be heavier, which is unsurprising and
+well established. A simple linear regression recovers it directly. The point of
+fitting it here is not the result but the structure: it introduces a second
+kind of input to the pipeline, a modeling choice, alongside the data itself.
+
+`species_role` controls how species enters the model. It can be left out, added
+as an additive term giving each species its own intercept, or included as an
+interaction giving each species its own slope. Changing it does not touch the
+data; it changes only how the model reads it.
+
+There is one case where the choice is made for me. When this runs once per
+species on the cluster, each job sees a single species, and a species term
+with only one level cannot be estimated, so the model falls back to flipper
+length alone. The per-species slopes the interaction would have estimated
+come out of the three jobs separately instead.
+
+The fitted model is saved as an `.rds`. A model object is an analysis result in
+the same sense a figure is. Saving it means a later question about predictions
+or diagnostics does not require refitting, and means the exact object behind
+the reported coefficients is recoverable.
+
+```{r}
+#| label: fit-model
+#| echo: fenced
+
+# species_role controls how species enters the model:
+#   "none"        : flipper length only
+#   "additive"    : flipper length + species (parallel intercepts)
+#   "interaction" : flipper length * species (separate slopes)
+
+species_role <- "interaction"
+
+# A per-species subset has a single level of species, and lm() cannot
+# estimate a term with one level, so fall back to flipper length alone.
+if (n_distinct(penguins$species) < 2) {
+  species_role <- "none"
+}
+
+model_formula <- switch(species_role,
+  none        = body_mass_g ~ flipper_length_mm,
+  additive    = body_mass_g ~ flipper_length_mm + species,
+  interaction = body_mass_g ~ flipper_length_mm * species
+)
+
+flipper_model <- lm(model_formula, data = penguins)
+
+save_output(
+  flipper_model,
+  "output/flipper-model.rds",
+  .f   = saveRDS,
+  note = paste("The fitted model object; species role:", species_role)
+)
+```
+
+@tbl-model-coefficients gives the fitted coefficients. Under the interaction
+setting each species is allowed its own relationship between flipper length and
+body mass rather than sharing a single slope.
+
+```{r}
+#| label: tbl-model-coefficients
+#| tbl-cap: "Estimated coefficients, body mass by flipper length"
+
+model_coefficients <- broom::tidy(flipper_model)
+
+save_output(
+  model_coefficients,
+  "output/tables/model-coefficients.csv",
+  .f   = write_csv,
+  note = "Model coefficient estimates"
+)
+
+model_tbl <- model_coefficients |>
+  gt() |>
+  fmt_number(columns = c(estimate, std.error, statistic), decimals = 2) |>
+  fmt_scientific(columns = p.value, decimals = 2) |>
+  cols_label(
+    term      = "Term",
+    estimate  = "Estimate",
+    std.error = "Std. Error",
+    statistic = "t statistic",
+    p.value   = "p value"
+  ) |>
+  tab_header(
+    title = "Body mass by flipper length",
+    subtitle = paste("Species role:", species_role)
+  )
+
+if (should_render_outputs) model_tbl
+```
+
+@fig-model-fit shows those fits against the observed points, making the
+difference in slopes visible directly.
+
+```{r}
+#| label: fig-model-fit
+#| fig-cap: "Fitted relationship between flipper length and body mass"
+
+model_plot <- penguins |>
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title    = "Body mass by flipper length",
+    subtitle = paste("Species role:", species_role),
+    x        = "Flipper length (mm)",
+    y        = "Body mass (g)",
+    color    = NULL,
+    caption  = "Data: Palmer Station LTER (Gorman, Williams & Fraser 2014)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+
+save_output(
+  model_plot,
+  "output/figures/model-fit.png",
+  .f     = save_plot,
+  width  = 7,
+  height = 5,
+  dpi    = 300,
+  note   = "Fitted body mass against flipper length"
+)
+
+if (should_render_outputs) model_plot
+```
+
+## What this produced
+
+Every `save_output()` call above added a line to `output/accumulator.csv`.
+The last step collapses those lines into the *output record*,
+`output/project-manifest.json`: one entry per file, with how it was written,
+whether the write succeeded, the note I gave it, and the git commit this
+document was run from. It overwrites the previous record, since every render
+produces a fresh one.
+
+```{r}
+#| label: output-record
+
+generate_manifest(overwrite = TRUE)
+```
+
+@tbl-output-record is that record, read back.
+
+```{r}
+#| label: tbl-output-record
+#| tbl-cap: "What this document produced, from its output record"
+
+if (should_render_outputs) {
+  read_output_records() |>
+    select(file_path, function_used, status, note) |>
+    gt() |>
+    cols_label(
+      file_path     = "File",
+      function_used = "Written with",
+      status        = "Status",
+      note          = "What it is"
+    )
+}
+```
+
+## Where this ran
+
+I will not always be the one running this document, so it also reports
+where it ran. @tbl-where-this-ran is the same table on my laptop, inside
+a container, and on a cluster node, and only the values change. It
+appears when the document renders, since a batch run has nowhere to show
+it.
+
+```{r}
+#| label: tbl-where-this-ran
+#| tbl-cap: "Where this document ran"
+
+if (should_render_outputs) {
+  tibble(
+    item  = c("Execution context", "Operating system", "R version", "Run at"),
+    value = c(
+      context,
+      paste(Sys.info()[["sysname"]], Sys.info()[["release"]]),
+      R.version.string,
+      format(Sys.time(), "%Y-%m-%d %H:%M %Z")
+    )
+  ) |>
+    gt() |>
+    tab_options(column_labels.hidden = TRUE)
+}
+```
+
+## Notes for Maris
+
+The appendix figure is `output/figures/bill-morphometrics.png`, at 300 dpi.
+My suggestion is to keep the species coloring described in the caption text as
+well as shown in the plot, for the Simpson's paradox reason above, since a
+reviewer skimming an uncolored reproduction would draw the wrong conclusion.
+
+Everything else this produced is under `output/`, and @tbl-output-record lists
+it, written by the document itself rather than by me.
+
+The flipper material was not asked for. It is here because it was cheap once
+the data was loaded, and because the bimodality in the Adélie flipper
+distribution may be a sex effect we have not split out. That is twenty
+minutes of work for some other week, not before Friday.
+
+Everything regenerates from `data-raw/palmer-morphometrics-2024.csv` with one
+render. If the season's measurements land before submission, drop the updated
+file into `data-raw/`, point `params$input_file` at it, and rerun. No edits to
+the analysis itself are required.
+
+## Next steps
+
+This document currently assumes a lot: that I have R and every package it
+needs installed correctly, that I am running it on my own laptop, and that
+"rerun it" means "I personally sit down and click render." None of that holds
+once this analysis needs to run somewhere I am not, which, given the scale
+Maris eventually wants for the full peninsula dataset, it will.
+
+Two things close that gap, and neither touches this document's logic.
+Containerizing the project packages the R version, every package, the system
+libraries underneath them, and the raw measurements into an image that runs
+identically on my laptop and on a machine I have never logged into, so "it
+worked when I rendered it" stops being a claim about my machine specifically.
+The script itself stays out of the image and travels with each job, so an
+edit here means re-sending one file, not rebuilding anything. Once that image
+exists, submitting it to CHTC's high-throughput cluster is what actually
+removes me from the loop: the job runs, the results come back, and I did not
+need to keep my laptop open or awake for any of it. The output record comes
+back with them, so "did every job write everything it should have" is a
+question with a table for an answer rather than a folder to inspect by eye.
+
+That second step is also where splitting the data starts to matter.
+Nothing here needs per-species files; a scatterplot and a grouped summary work
+fine against the whole dataset. A cluster job submitted once per species does
+need them, and `write_by_group()` will write them into `data/jobs/`, the
+project's standard place for split data, along with a manifest that
+enumerates exactly which files exist and where. The same document then runs
+once per file, unchanged. The split will feel like unnecessary setup work
+right up until it is not.
