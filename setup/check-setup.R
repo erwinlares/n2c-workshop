@@ -138,9 +138,10 @@ n2c_check <- function(days = 1:3) {
             if (is_installed("pak")) "installed" else "not installed",
             'Run install.packages("pak") in a fresh R session.')
         
-        # Task 1 and Task 3 of the Day 1 lesson load these two, and
-        # renv::hydrate() can only copy packages that are already installed.
-        for (p in c("readr", "ggplot2","rmarkdown")) {
+        # Task 1 and Task 3 of the Day 1 lesson load readr and ggplot2, and
+        # Task 3 also copies ragg into the new project. renv::hydrate() can
+        # only copy packages that are already installed.
+        for (p in c("readr", "ggplot2", "ragg")) {
             add(1, paste0(p, " package"),
                 if (is_installed(p)) "OK" else "FAIL",
                 if (is_installed(p)) "installed" else "not installed",

@@ -161,6 +161,11 @@ globally into the project, so the global installation in the previous section
 has to be done first. If `renv::hydrate()` reports packages it could not find,
 install them in a normal R session (outside the project), then run it again.
 
+**R asks for the `ragg` package after I open my new project.** The lesson copies
+`ragg` into the project along with the other packages, so this should not
+happen. If it does, install `ragg` in a normal R session (outside the project),
+then run `renv::hydrate(packages = "ragg")` in the project.
+
 **`pak` is not available inside the project.** A project session may use a
 restricted set of library paths. Install what you need in a normal R session
 first, then hydrate the project as described above.
@@ -188,9 +193,10 @@ it into your project's `data-raw/` folder), and it uses the palmerpenguins
 names.
 Read the CSV and the code will find its columns.
 
-**The folder `R/reports/` is empty after I render.** The script in that folder is
+**There is no `morphometrics-analysis.R` in `R/` after I render.** The script is
 written by a hook that only runs when the document was created with
-`use_purl = TRUE`, and the default is `FALSE`. Recreate the document with
+`use_purl = TRUE`, and the default is `FALSE`. (`R/purl.R`, the hook itself, is
+in that folder either way.) Recreate the document with
 `create_qmd(use_purl = TRUE, overwrite = TRUE)`, copying your code out of the old
 file first, since `overwrite = TRUE` replaces it. Then render again.
 
